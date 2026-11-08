@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Energía solar fotovoltaica · Wiki Eléctrica CO</title>
+  <meta name="description" content="Energía solar fotovoltaica en Colombia: dimensionamiento, configuración de strings, Ley 1715, CREG 174 de 2021 y calculadora de número de paneles.">
+  <meta name="theme-color" content="#0a0d14">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container">
+      <a class="brand" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="#ffd60a" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        <span>Wiki <b>Eléctrica</b> CO</span>
+      </a>
+      <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <nav class="nav">
+        <a href="../index.html">Inicio</a>
+        <a href="puesta-a-tierra.html">Puesta a tierra</a>
+        <a href="energia-solar.html" class="active">Solar FV</a>
+        <a href="seleccion-conductores.html">Conductores</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="container">
+        <div class="breadcrumb"><a href="../index.html">Inicio</a> / Energía solar fotovoltaica</div>
+        <h1 class="reveal">Energía solar <span class="accent">fotovoltaica</span></h1>
+        <p class="lead muted reveal" data-delay="1">Cómo dimensionar un sistema FV conectado a la red para autogeneración en Colombia.</p>
+      </div>
+    </div>
+
+    <!-- 1. Concepto -->
+    <section id="concepto">
+      <div class="container">
+        <div class="section-title reveal"><span class="num">1</span><h2>¿Qué es?</h2></div>
+        <div class="concept panel reveal">
+          <div>
+            <p>Un <strong>sistema solar fotovoltaico</strong> convierte la radiación solar en electricidad mediante módulos de celdas de silicio. Los módulos producen corriente continua (DC) que un <strong>inversor</strong> transforma en corriente alterna (AC) sincronizada con la red.</p>
+            <p>Hay sistemas <strong>conectados a la red</strong> (on-grid), <strong>aislados</strong> con baterías (off-grid) e <strong>híbridos</strong>. En Colombia, quien produce energía principalmente para su propio consumo es un <em>autogenerador</em>; si la planta es de hasta 1 MW, es un autogenerador a pequeña escala (AGPE) y puede entregar excedentes a la red según la Resolución CREG 174 de 2021.</p>
+          </div>
+          <ul class="keypoints">
+            <li>Colombia tiene buen recurso solar: aprox. 4 a 6 kWh/m²/día según la región.</li>
+            <li>El dato de partida es el consumo real (facturas de 12 meses).</li>
+            <li>La HSP (horas solares pico) resume el recurso del sitio.</li>
+            <li>La Ley 1715 de 2014 ofrece incentivos tributarios a estos proyectos.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Paso a paso -->
+    <section id="proceso">
+      <div class="container">
+        <div class="section-title reveal"><span class="num">2</span><h2>Proceso de diseño paso a paso</h2></div>
+
+        <div class="stepper reveal">
+          <ol class="step-list" role="tablist">
+            <li><button role="tab"><span class="n">1</span>Analizar el consumo</button></li>
+            <li><button role="tab"><span class="n">2</span>Evaluar el recurso solar</button></li>
+            <li><button role="tab"><span class="n">3</span>Calcular la potencia pico</button></li>
+            <li><button role="tab"><span class="n">4</span>Número de módulos</button></li>
+            <li><button role="tab"><span class="n">5</span>Inversor y strings</button></li>
+            <li><button role="tab"><span class="n">6</span>Protecciones y conexión</button></li>
+          </ol>
+
+          <div class="step-stage">
+            <!-- Paso 1 -->
+            <div class="step-panel" role="tabpanel">
+              <div class="figure">
+                <svg class="diagram" viewBox="0 0 480 260" role="img" aria-label="Consumo mensual de una vivienda">
+                  <g class="pop">
+                    <path d="M30 125 L95 70 L160 125" fill="none" stroke="#ffd60a" stroke-width="3" stroke-linejoin="round"/>
+                    <rect x="45" y="125" width="100" height="85" fill="#1c2233" stroke="#e8ebf3" stroke-width="2"/>
+                    <rect x="82" y="165" width="26" height="45" fill="#262e44"/>
+                    <rect class="blink" x="58" y="140" width="18" height="16" fill="#ffd60a" opacity=".85"/>
+                    <rect x="114" y="140" width="18" height="16" fill="#ffd60a" opacity=".5"/>
+                  </g>
+                  <line x1="190" y1="210" x2="460" y2="210" stroke="#9aa3b8"/>
+                  <g fill="#4cc9f0">
+                    <rect class="rise" style="--d:.1s" x="198" y="120" width="14" height="90"/>
+                    <rect class="rise" style="--d:.15s" x="220" y="130" width="14" height="80"/>
+                    <rect class="rise" style="--d:.2s" x="242" y="110" width="14" height="100"/>
+                    <rect class="rise" style="--d:.25s" x="264" y="125" width="14" height="85"/>
+                    <rect class="rise" style="--d:.3s" x="286" y="100" width="14" height="110"/>
+                    <rect class="rise" style="--d:.35s" x="308" y="115" width="14" height="95"/>
+                    <rect class="rise" style="--d:.4s" x="330" y="105" width="14" height="105"/>
+                    <rect class="rise" style="--d:.45s" x="352" y="95" width="14" height="115"/>
+                    <rect class="rise" style="--d:.5s" x="374" y="120" width="14" height="90"/>
+                    <rect class="rise" style="--d:.55s" x="396" y="130" width="14" height="80"/>
+                    <rect class="rise" style="--d:.6s" x="418" y="112" width="14" height="98"/>
+                    <rect class="rise" style="--d:.65s" x="440" y="90" width="14" height="120"/>
+                  </g>
+                  <path class="draw" style="--len:280;--d:1s" d="M190 112 H460" stroke="#ffd60a" stroke-width="2" stroke-dasharray="6 4" fill="none"/>
+                  <text class="fade" style="--d:1.2s" x="325" y="80" text-anchor="middle" fill="#ffd60a" font-weight="700">promedio kWh/mes</text>
+                  <text x="325" y="232" text-anchor="middle" class="lbl">consumo de los últimos 12 meses (factura)</text>
+                </svg>
+              </div>
+              <h3>1. Analizar el consumo</h3>
+              <p>Se revisan las facturas de los últimos 12 meses y se calcula el <strong>consumo promedio mensual</strong> en kWh. Dividido entre 30 da el consumo diario. También conviene conocer la curva de carga: el sistema FV produce de día, así que el autoconsumo es mayor si la demanda coincide con las horas de sol.</p>
+            </div>
+
+            <!-- Paso 2 -->
+            <div class="step-panel" role="tabpanel">
+              <div class="figure">
+                <svg class="diagram" viewBox="0 0 480 260" role="img" aria-label="Curva de irradiancia diaria y horas solares pico">
+                  <g transform="translate(410 45)">
+                    <circle r="16" fill="#ffd60a"/>
+                    <g class="spin" stroke="#ffd60a" stroke-width="3" stroke-linecap="round">
+                      <line x1="0" y1="-24" x2="0" y2="-32"/><line x1="0" y1="24" x2="0" y2="32"/>
+                      <line x1="-24" y1="0" x2="-32" y2="0"/><line x1="24" y1="0" x2="32" y2="0"/>
+                      <line x1="17" y1="17" x2="23" y2="23"/><line x1="-17" y1="-17" x2="-23" y2="-23"/>
+                      <line x1="17" y1="-17" x2="23" y2="-23"/><line x1="-17" y1="17" x2="-23" y2="23"/>
+                    </g>
+                  </g>
+                  <line x1="50" y1="215" x2="440" y2="215" stroke="#9aa3b8"/>
+                  <line x1="50" y1="215" x2="50" y2="40" stroke="#9aa3b8"/>
+                  <rect class="fade" style="--d:1.4s" x="175" y="60" width="140" height="155" fill="rgba(255,214,10,.22)" stroke="#ffd60a" stroke-dasharray="5 4"/>
+                  <path class="draw" style="--len:520" d="M60 215 C 140 213, 175 60, 245 60 S 350 213, 430 215" fill="none" stroke="#4cc9f0" stroke-width="3"/>
+                  <path class="draw" style="--len:400;--d:.8s" d="M50 60 H440" stroke="#ffd60a" stroke-width="1" stroke-dasharray="4 4" fill="none" opacity=".6"/>
+                  <text x="56" y="54" class="lbl">1000 W/m²</text>
+                  <text x="60" y="232" class="lbl">6 h</text><text x="236" y="232" class="lbl">12 h</text><text x="415" y="232" class="lbl">18 h</text>
+                  <text class="fade" style="--d:1.6s" x="245" y="140" text-anchor="middle" fill="#ffd60a" font-weight="700">HSP</text>
+                  <text class="fade" style="--d:1.6s" x="245" y="158" text-anchor="middle" class="lbl">misma área</text>
+                  <text x="245" y="252" text-anchor="middle" class="lbl">la energía del día equivale a HSP horas a 1000 W/m²</text>
+                </svg>
+              </div>
+              <h3>2. Evaluar el recurso solar</h3>
+              <p>La irradiación diaria del sitio (kWh/m²/día) se expresa como <strong>horas solares pico (HSP)</strong>: el número de horas que, a 1000 W/m², entregarían la misma energía. Se consulta el <em>Atlas de Radiación Solar</em> del IDEAM o bases como PVGIS o NASA POWER. Se considera también la inclinación (cercana a la latitud, unos 10–15° en Colombia para facilitar la limpieza) y las sombras.</p>
+            </div>
+
+            <!-- Paso 3 -->
+            <div class="step-panel" role="tabpanel">
+              <div class="figure">
+                <svg class="diagram" viewBox="0 0 480 260" role="img" aria-label="Cálculo de la potencia pico">
+                  <g class="pop">
+                    <rect x="20" y="95" width="110" height="70" rx="10" fill="#1c2233" stroke="#4cc9f0" stroke-width="2"/>
+                    <text x="75" y="126" text-anchor="middle" font-weight="700">E diaria</text>
+                    <text x="75" y="146" text-anchor="middle" class="lbl">kWh/día</text>
+                  </g>
+                  <text class="fade" style="--d:.4s" x="150" y="138" text-anchor="middle" font-size="26" fill="#ffd60a">÷</text>
+                  <g class="pop" style="--d:.5s">
+                    <rect x="170" y="95" width="130" height="70" rx="10" fill="#1c2233" stroke="#4cc9f0" stroke-width="2"/>
+                    <text x="235" y="126" text-anchor="middle" font-weight="700">HSP × PR</text>
+                    <text x="235" y="146" text-anchor="middle" class="lbl">h · rendimiento</text>
+                  </g>
+                  <path class="draw" style="--len:60;--d:1s" d="M305 130 H345" stroke="#ffd60a" stroke-width="3" fill="none"/>
+                  <path class="fade" style="--d:1.2s" d="M340 122 L350 130 L340 138" stroke="#ffd60a" stroke-width="3" fill="none"/>
+                  <g class="pop" style="--d:1.3s">
+                    <rect class="pulse" style="--d:1.8s" x="358" y="90" width="104" height="80" rx="12" fill="rgba(255,214,10,.15)" stroke="#ffd60a" stroke-width="2.5"/>
+                    <text x="410" y="128" text-anchor="middle" fill="#ffd60a" font-weight="800" font-size="18">kWp</text>
+                    <text x="410" y="150" text-anchor="middle" class="lbl">potencia pico</text>
+                  </g>
+                  <g class="fade" style="--d:1.6s">
+                    <text x="240" y="215" text-anchor="middle" class="lbl">PR (performance ratio) ≈ 0,75–0,82: pérdidas por temperatura,</text>
+                    <text x="240" y="233" text-anchor="middle" class="lbl">suciedad, cableado, inversor y desajuste entre módulos</text>
+                  </g>
+                </svg>
+              </div>
+              <h3>3. Calcular la potencia pico</h3>
+              <p>La <strong>potencia pico</strong> necesaria (kWp, en condiciones estándar STC) resulta de dividir la energía diaria a cubrir entre las HSP y el <strong>rendimiento global PR</strong>. Puede dimensionarse para cubrir el 100 % del consumo o un porcentaje, según el presupuesto, el área disponible y la conveniencia de vender excedentes.</p>
+            </div>
+
+            <!-- Paso 4 -->
+            <div class="step-panel" role="tabpanel">
+              <div class="figure">
+                <svg class="diagram" viewBox="0 0 480 260" role="img" aria-label="Arreglo de módulos fotovoltaicos">
+                  <defs>
+                    <g id="pv">
+                      <rect width="54" height="80" rx="3" fill="#13305a" stroke="#4cc9f0" stroke-width="1.5"/>
+                      <path d="M0 20H54M0 40H54M0 60H54M18 0V80M36 0V80" stroke="#4cc9f0" stroke-opacity=".45"/>
+                    </g>
+                  </defs>
+                  <use class="pop" style="--d:0s" href="#pv" x="45" y="25"/>
+                  <use class="pop" style="--d:.15s" href="#pv" x="109" y="25"/>
+                  <use class="pop" style="--d:.3s" href="#pv" x="173" y="25"/>
+                  <use class="pop" style="--d:.45s" href="#pv" x="237" y="25"/>
+                  <use class="pop" style="--d:.6s" href="#pv" x="301" y="25"/>
+                  <use class="pop" style="--d:.75s" href="#pv" x="365" y="25"/>
+                  <use class="pop" style="--d:.9s" href="#pv" x="45" y="117"/>
+                  <use class="pop" style="--d:1.05s" href="#pv" x="109" y="117"/>
+                  <use class="pop" style="--d:1.2s" href="#pv" x="173" y="117"/>
+                  <use class="pop" style="--d:1.35s" href="#pv" x="237" y="117"/>
+                  <use class="pop" style="--d:1.5s" href="#pv" x="301" y="117"/>
+                  <use class="pop" style="--d:1.65s" href="#pv" x="365" y="117"/>
+                  <text class="fade" style="--d:1.9s" x="240" y="228" text-anchor="middle" fill="#ffd60a" font-weight="700">N = kWp ÷ potencia del módulo</text>
+                  <text class="fade" style="--d:2.1s" x="240" y="248" text-anchor="middle" class="lbl">se redondea hacia arriba y se ajusta a la configuración de strings</text>
+                </svg>
+              </div>
+              <h3>4. Determinar el número de módulos</h3>
+              <p>Se divide la potencia pico entre la potencia nominal del módulo elegido (por ejemplo 450–600 Wp) y se redondea hacia arriba. Con el área de cada módulo se verifica que quepan en la cubierta o el terreno, dejando pasillos para mantenimiento y evitando sombras.</p>
+            </div>
+
+            <!-- Paso 5 -->
+            <div class="step-panel" role="tabpanel">
+              <div class="figure">
+                <svg class="diagram" viewBox="0 0 480 260" role="img" aria-label="String de módulos conectados al inversor">
+                  <g fill="#13305a" stroke="#4cc9f0" stroke-width="1.5">
+                    <rect class="pop" x="20" y="40" width="44" height="64" rx="3"/>
+                    <rect class="pop" style="--d:.1s" x="74" y="40" width="44" height="64" rx="3"/>
+                    <rect class="pop" style="--d:.2s" x="128" y="40" width="44" height="64" rx="3"/>
+                    <rect class="pop" style="--d:.3s" x="182" y="40" width="44" height="64" rx="3"/>
+                  </g>
+                  <path class="draw" style="--len:240;--d:.4s" d="M42 104 V120 H96 V104 M96 120 H150 V104 M150 120 H204 V104" fill="none" stroke="#ff5d73" stroke-width="2"/>
+                  <text class="fade" style="--d:.6s" x="123" y="28" text-anchor="middle" class="lbl">módulos en serie → suman tensión</text>
+                  <path class="draw" style="--len:200;--d:.8s" d="M204 120 H250 V150 H290" fill="none" stroke="#e8ebf3" stroke-width="2"/>
+                  <path class="flow" d="M204 120 H250 V150 H290" fill="none" stroke="#ffd60a" stroke-width="2.5"/>
+                  <text x="252" y="112" class="hl">DC</text>
+                  <g class="pop" style="--d:1s">
+                    <rect x="290" y="120" width="80" height="62" rx="8" fill="#1c2233" stroke="#ffd60a" stroke-width="2"/>
+                    <text x="330" y="148" text-anchor="middle" font-weight="700">Inversor</text>
+                    <path d="M308 166 q6 -10 12 0 t12 0 t12 0" fill="none" stroke="#4cc9f0" stroke-width="2"/>
+                  </g>
+                  <path class="flow" d="M370 150 H460" fill="none" stroke="#4cc9f0" stroke-width="2.5"/>
+                  <text x="415" y="140" text-anchor="middle" class="hl">AC</text>
+                  <!-- Termómetro -->
+                  <g class="fade" style="--d:1.3s">
+                    <rect x="60" y="165" width="12" height="55" rx="6" fill="none" stroke="#e8ebf3" stroke-width="2"/>
+                    <circle cx="66" cy="226" r="10" fill="#4cc9f0"/>
+                    <rect class="rise" style="--d:1.5s" x="63" y="190" width="6" height="34" fill="#4cc9f0"/>
+                    <text x="86" y="190" class="lbl">a menor temperatura,</text>
+                    <text x="86" y="206" class="lbl">mayor Voc: verificar con T mín.</text>
+                    <text x="86" y="222" class="lbl">que no se supere V máx. del inversor</text>
+                  </g>
+                </svg>
+              </div>
+              <h3>5. Elegir el inversor y configurar los strings</h3>
+              <p>La potencia del inversor suele ser del 80 al 100 % de la potencia pico (relación DC/AC de 1,0 a 1,25). Los módulos se agrupan en <strong>strings</strong> (en serie). El número de módulos en serie se limita para que la <strong>V<sub>oc</sub> a la temperatura mínima</strong> no supere la tensión máxima del inversor, y para que la V<sub>mp</sub> a la temperatura máxima quede dentro del rango MPPT.</p>
+            </div>
+
+            <!-- Paso 6 -->
+            <div class="step-panel" role="tabpanel">
+              <div class="figure">
+                <svg class="diagram" viewBox="0 0 480 260" role="img" aria-label="Conexión a la red con medidor bidireccional">
+                  <g class="pop">
+                    <rect x="20" y="70" width="70" height="56" rx="8" fill="#1c2233" stroke="#ffd60a" stroke-width="2"/>
+                    <text x="55" y="103" text-anchor="middle" font-size="12" font-weight="700">Inversor</text>
+                  </g>
+                  <g class="pop" style="--d:.2s">
+                    <rect x="120" y="76" width="44" height="44" rx="6" fill="#1c2233" stroke="#52d17c" stroke-width="2"/>
+                    <text x="142" y="103" text-anchor="middle" font-size="10" fill="#52d17c">DPS</text>
+                    <text x="142" y="140" text-anchor="middle" class="lbl">protecciones</text>
+                  </g>
+                  <g class="pop" style="--d:.4s">
+                    <circle cx="245" cy="98" r="32" fill="#1c2233" stroke="#4cc9f0" stroke-width="2"/>
+                    <text x="245" y="96" text-anchor="middle" font-size="11" font-weight="700">kWh</text>
+                    <text x="245" y="111" text-anchor="middle" font-size="10" fill="#4cc9f0">⇄</text>
+                    <text x="245" y="56" text-anchor="middle" class="lbl">medidor bidireccional</text>
+                  </g>
+                  <!-- Torre -->
+                  <g class="fade" style="--d:.6s" stroke="#e8ebf3" stroke-width="2" fill="none">
+                    <path d="M410 40 L380 200 M410 40 L440 200 M388 160 H432 M395 110 H425 M370 70 H450 M378 90 H442"/>
+                  </g>
+                  <text x="410" y="222" text-anchor="middle" class="lbl">red del operador</text>
+                  <path d="M90 98 H120 M164 98 H213" stroke="#e8ebf3" stroke-width="2"/>
+                  <path class="flow" d="M90 98 H120 M164 98 H213" fill="none" stroke="#ffd60a" stroke-width="2.5"/>
+                  <!-- Excedentes / importación -->
+                  <path d="M277 88 H390" stroke="#e8ebf3" stroke-width="2"/>
+                  <path class="flow" d="M277 88 H390" fill="none" stroke="#ffd60a" stroke-width="2.5"/>
+                  <text x="333" y="78" text-anchor="middle" class="hl" font-size="11">excedentes →</text>
+                  <path d="M277 110 H390" stroke="#e8ebf3" stroke-width="2"/>
+                  <path class="flow rev" d="M277 110 H390" fill="none" stroke="#4cc9f0" stroke-width="2.5"/>
+                  <text x="333" y="130" text-anchor="middle" font-size="11" fill="#4cc9f0">← importación</text>
+                  <!-- Carga -->
+                  <path class="draw" style="--len:80;--d:.8s" d="M190 98 V185" stroke="#e8ebf3" stroke-width="2" fill="none"/>
+                  <g class="pop" style="--d:1s">
+                    <path d="M160 205 L190 180 L220 205 Z" fill="none" stroke="#ffd60a" stroke-width="2"/>
+                    <rect x="167" y="205" width="46" height="34" fill="#1c2233" stroke="#e8ebf3" stroke-width="1.5"/>
+                  </g>
+                  <text x="235" y="230" class="lbl">autoconsumo</text>
+                  <text class="fade" style="--d:1.3s" x="55" y="40" text-anchor="middle" fill="#ffd60a" font-weight="700" font-size="12">CREG 174</text>
+                </svg>
+              </div>
+              <h3>6. Protecciones, puesta a tierra y conexión a la red</h3>
+              <p>Se dimensionan conductores y fusibles DC (NTC 2050, Sección 690), interruptores AC, <strong>DPS</strong> en DC y AC, la puesta a tierra de estructuras y marcos, y la señalización. Luego se tramita la conexión ante el <strong>operador de red</strong> según la CREG 174 de 2021, se instala el medidor bidireccional y se obtiene el dictamen de inspección RETIE.</p>
+            </div>
+
+            <div class="step-controls">
+              <button class="btn" data-prev>← Anterior</button>
+              <button class="btn primary" data-play>▶ Reproducir</button>
+              <div class="progress"><span></span></div>
+              <button class="btn" data-next>Siguiente →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Fórmulas -->
+    <section id="formulas">
+      <div class="container">
+        <div class="section-title reveal"><span class="num">3</span><h2>Fórmulas clave</h2></div>
+        <div class="formulas">
+          <div class="formula reveal" data-delay="1">
+            <h4>Potencia pico requerida</h4>
+            <div class="eq">$$P_{p} = \frac{E_{d}}{HSP \cdot PR}$$</div>
+            <p class="where"><b>P<sub>p</sub></b> potencia pico [kWp] · <b>E<sub>d</sub></b> energía diaria a cubrir [kWh/día] · <b>HSP</b> horas solares pico [h/día] · <b>PR</b> rendimiento global (0,75–0,82).</p>
+          </div>
+          <div class="formula reveal" data-delay="2">
+            <h4>Número de módulos</h4>
+            <div class="eq">$$N = \left\lceil \frac{P_{p}}{P_{\text{m\'od}}} \right\rceil$$</div>
+            <p class="where"><b>P<sub>mód</sub></b> potencia del módulo en STC [kWp]. Se redondea hacia arriba.</p>
+          </div>
+          <div class="formula reveal" data-delay="3">
+            <h4>Energía generada</h4>
+            <div class="eq">$$E_{mes} = P_{p} \cdot HSP \cdot PR \cdot 30$$</div>
+            <p class="where">Estimación mensual promedio [kWh/mes].</p>
+          </div>
+          <div class="formula reveal" data-delay="4">
+            <h4>Tensión de circuito abierto a temperatura mínima</h4>
+            <div class="eq">$$V_{\text{oc,m\'ax}} = V_{oc}\left[1 + \frac{\beta}{100}\,(T_{\text{m\'in}} - 25)\right]$$</div>
+            <p class="where"><b>β</b> coeficiente de temperatura de V<sub>oc</sub> [%/°C], negativo · <b>T<sub>mín</sub></b> temperatura mínima esperada de celda [°C].</p>
+          </div>
+          <div class="formula reveal" data-delay="5">
+            <h4>Máximo de módulos en serie</h4>
+            <div class="eq">$$N_{\text{s,m\'ax}} = \left\lfloor \frac{V_{\text{m\'ax,inv}}}{V_{\text{oc,m\'ax}}} \right\rfloor$$</div>
+            <p class="where"><b>V<sub>máx,inv</sub></b> tensión DC máxima de entrada del inversor [V]. Se redondea hacia abajo.</p>
+          </div>
+          <div class="formula reveal" data-delay="6">
+            <h4>Corriente para conductores DC</h4>
+            <div class="eq">$$I_{\text{dise\~no}} = 1{,}25 \cdot 1{,}25 \cdot I_{sc} = 1{,}56\, I_{sc}$$</div>
+            <p class="where">Criterio de la Sección 690 de la NTC 2050: 125 % por irradiancia elevada y 125 % por operación continua.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Normativa -->
+    <section id="normativa">
+      <div class="container">
+        <div class="section-title reveal"><span class="num">4</span><h2>Normativa colombiana aplicable</h2></div>
+        <div class="norms">
+          <div class="norm reveal" data-delay="1">
+            <span class="tag">RETIE</span>
+            <h4>Instalación y productos</h4>
+            <p>La instalación FV debe cumplir el RETIE: productos certificados (módulos, inversores, protecciones), puesta a tierra, señalización y dictamen de inspección para su puesta en servicio.</p>
+          </div>
+          <div class="norm reveal" data-delay="2">
+            <span class="tag">NTC 2050</span>
+            <h4>Secciones 690 y 705</h4>
+            <p>La Sección 690 trata los sistemas solares fotovoltaicos (circuitos, conductores, desconexión, protección contra fallas a tierra y arco). La 705 cubre las fuentes interconectadas con la red.</p>
+          </div>
+          <div class="norm reveal" data-delay="3">
+            <span class="tag">NTC 4552</span>
+            <h4>Protección contra rayos</h4>
+            <p>Evaluación del riesgo por rayos, protección externa del arreglo en cubiertas o en campo, y coordinación de DPS en los lados DC y AC.</p>
+          </div>
+          <div class="norm reveal" data-delay="4">
+            <span class="tag">Ley 1715</span>
+            <h4>Ley 1715 de 2014 (modificada por la Ley 2099 de 2021)</h4>
+            <p>Incentivos a las fuentes no convencionales: deducción en renta de hasta el 50 % de la inversión, exclusión de IVA, exención de aranceles y depreciación acelerada. Requiere certificación previa (UPME).</p>
+          </div>
+          <div class="norm reveal" data-delay="5">
+            <span class="tag">CREG 174</span>
+            <h4>Resolución CREG 174 de 2021</h4>
+            <p>Regula la autogeneración a pequeña escala (AGPE, hasta 1 MW) y la generación distribuida: procedimiento de conexión con el operador de red, medición y remuneración de excedentes (créditos de energía para AGPE de hasta 100 kW).</p>
+          </div>
+        </div>
+        <div class="notice reveal">
+          <span class="ico">⚠️</span>
+          <p><strong>Verifique la versión vigente.</strong> Los incentivos tributarios, los límites de potencia y los procedimientos de conexión cambian con nuevas leyes, decretos y resoluciones de la CREG y la UPME. Consulte el texto oficial antes de tomar decisiones de inversión o diseño.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Calculadora -->
+    <section id="calculadora">
+      <div class="container">
+        <div class="section-title reveal"><span class="num">5</span><h2>Calculadora</h2></div>
+        <div class="panel reveal">
+
+          <form class="calc" id="form-fv" autocomplete="off">
+            <div>
+              <h3>A. Número de paneles</h3>
+              <div class="row-2">
+                <div class="field">
+                  <label for="fv-e">Consumo mensual [kWh/mes]</label>
+                  <input id="fv-e" type="number" min="1" step="1" value="250">
+                </div>
+                <div class="field">
+                  <label for="fv-cob">Cobertura deseada [%]</label>
+                  <input id="fv-cob" type="number" min="1" max="200" step="1" value="100">
+                </div>
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label for="fv-ciudad">Ciudad de referencia</label>
+                  <select id="fv-ciudad">
+                    <option value="">— Personalizado —</option>
+                    <option value="4.2">Bogotá (≈ 4,2)</option>
+                    <option value="4.6" selected>Medellín (≈ 4,6)</option>
+                    <option value="4.6">Cali (≈ 4,6)</option>
+                    <option value="4.9">Bucaramanga (≈ 4,9)</option>
+                    <option value="5.4">Barranquilla (≈ 5,4)</option>
+                    <option value="5.4">Cartagena (≈ 5,4)</option>
+                    <option value="5.9">Riohacha (≈ 5,9)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="fv-hsp">HSP [h/día]</label>
+                  <input id="fv-hsp" type="number" min="1" max="8" step="0.1" value="4.6">
+                </div>
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label for="fv-pmod">Potencia del módulo [Wp]</label>
+                  <input id="fv-pmod" type="number" min="50" step="5" value="550">
+                </div>
+                <div class="field">
+                  <label for="fv-pr">Rendimiento PR</label>
+                  <input id="fv-pr" type="number" min="0.5" max="0.95" step="0.01" value="0.78">
+                </div>
+              </div>
+              <div class="field">
+                <label for="fv-area">Área por módulo [m²]</label>
+                <input id="fv-area" type="number" min="0.5" step="0.01" value="2.6">
+              </div>
+            </div>
+            <div class="results">
+              <div class="result big"><span>Número de módulos</span><strong id="fv-n">—</strong></div>
+              <div class="result"><span>Potencia pico requerida</span><strong id="fv-pp">—</strong></div>
+              <div class="result"><span>Potencia pico instalada</span><strong id="fv-pinst">—</strong></div>
+              <div class="result"><span>Generación estimada</span><strong id="fv-gen">—</strong></div>
+              <div class="result"><span>Área aproximada (con 20 % extra)</span><strong id="fv-a">—</strong></div>
+              <div class="result"><span>Inversor sugerido (DC/AC ≈ 1,1)</span><strong id="fv-inv">—</strong></div>
+              <div id="fv-status" class="status info">—</div>
+              <p class="calc-note">Valores de HSP aproximados para orientación. Para un diseño real use el Atlas de Radiación Solar del IDEAM o datos medidos del sitio.</p>
+            </div>
+          </form>
+
+          <form class="calc" id="form-string" autocomplete="off">
+            <div>
+              <h3>B. Módulos en serie por string</h3>
+              <div class="row-2">
+                <div class="field">
+                  <label for="st-voc">Voc del módulo [V]</label>
+                  <input id="st-voc" type="number" min="1" step="0.1" value="49.6">
+                </div>
+                <div class="field">
+                  <label for="st-beta">Coef. β de Voc [%/°C]</label>
+                  <input id="st-beta" type="number" step="0.01" value="-0.27">
+                </div>
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label for="st-tmin">Temperatura mínima [°C]</label>
+                  <input id="st-tmin" type="number" step="1" value="5">
+                </div>
+                <div class="field">
+                  <label for="st-vmax">V máx. DC inversor [V]</label>
+                  <input id="st-vmax" type="number" min="1" step="10" value="600">
+                </div>
+              </div>
+            </div>
+            <div class="results">
+              <div class="result big"><span>Máx. módulos en serie</span><strong id="st-n">—</strong></div>
+              <div class="result"><span>Voc corregida por módulo</span><strong id="st-vc">—</strong></div>
+              <div class="result"><span>Voc del string a T mín.</span><strong id="st-vs">—</strong></div>
+              <div id="st-status" class="status info">—</div>
+              <p class="calc-note">Verifique también que la Vmp del string a la temperatura máxima de celda quede dentro del rango MPPT del inversor.</p>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <nav class="pager">
+          <a href="puesta-a-tierra.html"><small>← Anterior</small>Puesta a tierra</a>
+          <a class="next" href="seleccion-conductores.html"><small>Siguiente →</small>Selección de conductores</a>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Wiki Eléctrica CO · <span data-year></span> · Contenido con fines educativos. No reemplaza el criterio de un profesional con matrícula vigente ni el texto oficial de las normas.</p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/energia-solar.js"></script>
+</body>
+</html>

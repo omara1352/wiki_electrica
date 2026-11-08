@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Puesta a tierra · Wiki Eléctrica CO</title>
+  <meta name="description" content="Puesta a tierra: resistividad del terreno, diseño de electrodos y mallas, tensiones de paso y contacto, normativa RETIE y calculadora de resistencia de electrodo.">
+  <meta name="theme-color" content="#0a0d14">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container">
+      <a class="brand" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="#ffd60a" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        <span>Wiki <b>Eléctrica</b> CO</span>
+      </a>
+      <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <nav class="nav">
+        <a href="../index.html">Inicio</a>
+        <a href="puesta-a-tierra.html" class="active">Puesta a tierra</a>
+        <a href="energia-solar.html">Solar FV</a>
+        <a href="seleccion-conductores.html">Conductores</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="container">
+        <div class="breadcrumb"><a href="../index.html">Inicio</a> / Puesta a tierra</div>
+        <h1 class="reveal">Puesta a <span class="accent">tierra</span></h1>
+        <p class="lead muted reveal" data-delay="1">Cómo conectar de forma segura una instalación eléctrica con el terreno para proteger a las personas y a los equipos.</p>
+      </div>
+    </div>
+
+    <!-- 1. Concepto -->
+    <section id="concepto">
+      <div class="container">
+        <div class="section-title reveal"><span class="num">1</span><h2>¿Qué es?</h2></div>
+        <div class="concept panel reveal">
+          <div>
+            <p>Un <strong>sistema de puesta a tierra (SPT)</strong> es el conjunto de electrodos, conductores y conexiones que une las partes metálicas de una instalación con el suelo. Su función principal es <strong>proteger a las personas</strong>: cuando ocurre una falla, el SPT ofrece un camino de baja impedancia para la corriente y limita las <em>tensiones de paso y de contacto</em> a valores que el cuerpo humano pueda soportar.</p>
+            <p>También permite que las protecciones operen rápido, estabiliza la tensión respecto a tierra, disipa las corrientes de rayo y reduce el ruido en equipos electrónicos. Su desempeño depende sobre todo de la <strong>resistividad del terreno</strong> y de la geometría de los electrodos.</p>
+          </div>
+          <ul class="keypoints">
+            <li>Objetivo central: que las tensiones de paso y contacto sean tolerables.</li>
+            <li>La resistencia de puesta a tierra es un indicador, no el único criterio.</li>
+            <li>Todo empieza midiendo la resistividad del suelo.</li>
+            <li>Debe medirse al construir y verificarse durante el mantenimiento.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Paso a paso -->
+    <section id="proceso">
+      <div class="container">
+        <div class="section-title reveal"><span class="num">2</span><h2>Proceso de diseño paso a paso</h2></div>
+
+        <div class="stepper reveal">
+          <ol class="step-list" role="tablist">
+            <li><button role="tab"><span class="n">1</span>Medir la resistividad</button></li>
+            <li><button role="tab"><span class="n">2</span>Corriente de falla y tiempo</button></li>
+            <li><button role="tab"><span class="n">3</span>Calibre del conductor</button></li>
+            <li><button role="tab"><span class="n">4</span>Configuración de electrodos</button></li>
+            <li><button role="tab"><span class="n">5</span>Tensiones de paso y contacto</button></li>
+            <li><button role="tab"><span class="n">6</span>Construir y medir</button></li>
+          </ol>
+
+          <div class="step-stage">
+            <!-- Paso 1 -->
+            <div class="step-panel" role="tabpanel">
+              <div class="figure">
+                <svg class="diagram" viewBox="0 0 480 260" role="img" aria-label="Método de Wenner con cuatro electrodos">
+                  <rect class="ground" x="0" y="130" width="480" height="130"/>
+                  <line class="soil-line" x1="0" y1="130" x2="480" y2="130"/>
+                  <!-- Telurómetro -->
+                  <g class="pop">
+                    <rect x="195" y="22" width="90" height="46" rx="8" fill="#1c2233" stroke="#ffd60a" stroke-width="2"/>
+                    <text x="240" y="44" text-anchor="middle" class="hl">Ω</text>
+                    <text x="240" y="60" text-anchor="middle" class="lbl">telurómetro</text>
+                  </g>
+                  <!-- Cables -->
+                  <path class="draw" style="--len:260;--d:.3s" d="M195 45 H90 V115" fill="none" stroke="#4cc9f0" stroke-width="2"/>
+                  <path class="draw" style="--len:260;--d:.3s" d="M285 45 H390 V115" fill="none" stroke="#4cc9f0" stroke-width="2"/>
+                  <path class="draw" style="--len:120;--d:.6s" d="M222 68 V90 H190 V115" fill="none" stroke="#ffd60a" stroke-width="2"/>
+                  <path class="draw" style="--len:120;--d:.6s" d="M258 68 V90 H290 V115" fill="none" stroke="#ffd60a" stroke-width="2"/>
+                  <!-- Electrodos -->
+                  <g class="fade" style="--d:.9s" fill="#c9a36a">
+                    <rect x="87" y="115" width="6" height="40"/><rect x="187" y="115" width="6" height="40"/>
+                    <rect x="287" y="115" width="6" height="40"/><rect x="387" y="115" width="6" height="40"/>
+                  </g>
+                  <g class="fade" style="--d:1s">
+                    <text x="72" y="112" class="lbl">C1</text><text x="172" y="112" class="lbl">P1</text>
+                    <text x="296" y="112" class="lbl">P2</text><text x="396" y="112" class="lbl">C2</text>
+                  </g>
+                  <!-- Separación a -->
+                  <g class="fade" style="--d:1.2s" stroke="#9aa3b8" stroke-width="1">
+                    <line x1="90" y1="172" x2="190" y2="172"/><line x1="190" y1="172" x2="290" y2="172"/><line x1="290" y1="172" x2="390" y2="172"/>
+                  </g>
+                  <g class="fade" style="--d:1.2s">
+                    <text x="140" y="166" text-anchor="middle" class="hl">a</text><text x="240" y="166" text-anchor="middle" class="hl">a</text><text x="340" y="166" text-anchor="middle" class="hl">a</text>
+                  </g>
+                  <!-- Corriente en el suelo -->
+                  <path class="flow" d="M93 155 Q240 290 387 155" fill="none" stroke="#4cc9f0" stroke-width="2" opacity=".8"/>
+                  <path class="flow" d="M93 150 Q240 230 387 150" fill="none" stroke="#4cc9f0" stroke-width="1.5" opacity=".5"/>
+                  <text x="240" y="248" text-anchor="middle" class="lbl">la corriente I circula entre C1 y C2; se mide la tensión entre P1 y P2</text>
+                </svg>
+              </div>
+              <h3>1. Medir la resistividad del terreno</h3>
+              <p>Con el <strong>método de Wenner</strong> se clavan cuatro electrodos en línea, separados una distancia <em>a</em>. El equipo inyecta corriente por los extremos (C1, C2) y mide la tensión entre los centrales (P1, P2). Se repite para varias separaciones (por ejemplo 1, 2, 4, 8 y 16 m) y en varias direcciones, para conocer cómo cambia la resistividad con la profundidad.</p>
+            </div>
+
+            <!-- Paso 2 -->
+            <div class="step-panel" role="tabpanel">
+              <div class="figure">
+                <svg class="diagram" viewBox="0 0 480 260" role="img" aria-label="Recorrido de la corriente de falla">
+                  <rect class="ground" x="0" y="160" width="480" height="100"/>
+                  <line class="soil-line" x1="0" y1="160" x2="480" y2="160"/>
+                  <!-- Transformador -->
+                  <g class="pop">
+                    <circle cx="70" cy="70" r="24" fill="none" stroke="#e8ebf3" stroke-width="2"/>
+                    <circle cx="100" cy="70" r="24" fill="none" stroke="#e8ebf3" stroke-width="2"/>
+                  </g>
+                  <text x="85" y="30" text-anchor="middle" class="lbl">transformador</text>
+                  <!-- Fase -->
+                  <path class="draw" style="--len:240;--d:.3s" d="M124 70 H360" fill="none" stroke="#e8ebf3" stroke-width="2"/>
+                  <path class="flow" d="M124 70 H360" fill="none" stroke="#ff5d73" stroke-width="3" opacity=".9"/>
+                  <text x="240" y="60" text-anchor="middle" class="hl">I falla →</text>
+                  <!-- Equipo -->
+                  <g class="pop" style="--d:.5s">
+                    <rect x="360" y="45" width="80" height="70" rx="6" fill="#1c2233" stroke="#9aa3b8" stroke-width="2"/>
+                    <text x="400" y="85" text-anchor="middle" class="lbl">equipo</text>
+                  </g>
+                  <!-- Chispa -->
+                  <path class="blink" d="M372 60 l8 12 h-6 l8 14" fill="none" stroke="#ffd60a" stroke-width="3" stroke-linecap="round"/>
+                  <!-- Conductores a tierra -->
+                  <path class="draw" style="--len:80;--d:.7s" d="M400 115 V185" fill="none" stroke="#52d17c" stroke-width="3"/>
+                  <path class="draw" style="--len:120;--d:.7s" d="M85 94 V185" fill="none" stroke="#52d17c" stroke-width="3"/>
+                  <!-- Retorno por el suelo -->
+                  <path class="flow rev" d="M400 190 Q240 260 85 190" fill="none" stroke="#ff5d73" stroke-width="2.5"/>
+                  <text x="240" y="250" text-anchor="middle" class="lbl">retorno por el SPT y el terreno</text>
+                  <!-- Reloj -->
+                  <g class="fade" style="--d:1s">
+                    <circle cx="240" cy="125" r="18" fill="none" stroke="#ffd60a" stroke-width="2"/>
+                    <line x1="240" y1="125" x2="240" y2="113" stroke="#ffd60a" stroke-width="2"/>
+                    <line class="spin" x1="240" y1="125" x2="250" y2="125" stroke="#ffd60a" stroke-width="2"/>
+                    <text x="268" y="130" class="lbl">t de despeje</text>
+                  </g>
+                </svg>
+              </div>
+              <h3>2. Corriente de falla y tiempo de despeje</h3>
+              <p>Se obtiene del estudio de cortocircuito la <strong>máxima corriente de falla a tierra</strong> que circulará por el SPT y el <strong>tiempo de despeje</strong> de las protecciones. Estos dos valores definen la energía que deben soportar los conductores y las tensiones que aparecerán en el terreno.</p>
+            </div>
+
+            <!-- Paso 3 -->
+            <div class="step-panel" role="tabpanel">
+              <div class="figure">
+                <svg class="diagram" viewBox="0 0 480 260" role="img" aria-label="Sección transversal de un conductor de cobre">
+                  <circle class="pulse" cx="150" cy="130" r="92" fill="rgba(255,93,115,.08)"/>
+                  <circle class="pop" cx="150" cy="130" r="78" fill="#3a2a1a" stroke="#c98a4b" stroke-width="3"/>
+                  <g class="pop" style="--d:.3s" fill="#d9965a" stroke="#7a4f27">
+                    <circle cx="150" cy="130" r="18"/>
+                    <circle cx="150" cy="94" r="18"/><circle cx="150" cy="166" r="18"/>
+                    <circle cx="119" cy="112" r="18"/><circle cx="181" cy="112" r="18"/>
+                    <circle cx="119" cy="148" r="18"/><circle cx="181" cy="148" r="18"/>
+                  </g>
+                  <path class="draw" style="--len:100;--d:.6s" d="M232 130 H300" stroke="#ffd60a" stroke-width="2" fill="none"/>
+                  <g class="fade" style="--d:.9s">
+                    <text x="310" y="100" class="hl">A [mm²]</text>
+                    <text x="310" y="124" class="lbl">debe soportar la</text>
+                    <text x="310" y="140" class="lbl">corriente de falla durante</text>
+                    <text x="310" y="156" class="lbl">tc sin fundirse ni dañar</text>
+                    <text x="310" y="172" class="lbl">las uniones</text>
+                  </g>
+                  <text x="150" y="250" text-anchor="middle" class="lbl">Cu desnudo · mínimo según RETIE / NTC 2050</text>
+                </svg>
+              </div>
+              <h3>3. Calcular el calibre del conductor</h3>
+              <p>El conductor de la malla y las bajantes debe soportar térmicamente la corriente de falla durante el tiempo de despeje. Se usa la fórmula simplificada de Onderdonk (IEEE 80), recogida por el RETIE, con la constante <em>K<sub>f</sub></em> del material. Luego se compara con el calibre mínimo exigido por la norma y se elige el mayor.</p>
+            </div>
+
+            <!-- Paso 4 -->
+            <div class="step-panel" role="tabpanel">
+              <div class="figure">
+                <svg class="diagram" viewBox="0 0 480 260" role="img" aria-label="Vista en planta de una malla de puesta a tierra">
+                  <rect x="90" y="30" width="300" height="190" fill="rgba(255,214,10,.04)" stroke="none"/>
+                  <g stroke="#c98a4b" stroke-width="3" fill="none">
+                    <path class="draw" style="--len:300;--d:0s" d="M90 30 H390"/>
+                    <path class="draw" style="--len:300;--d:.15s" d="M90 93 H390"/>
+                    <path class="draw" style="--len:300;--d:.3s" d="M90 157 H390"/>
+                    <path class="draw" style="--len:300;--d:.45s" d="M90 220 H390"/>
+                    <path class="draw" style="--len:190;--d:.6s" d="M90 30 V220"/>
+                    <path class="draw" style="--len:190;--d:.75s" d="M165 30 V220"/>
+                    <path class="draw" style="--len:190;--d:.9s" d="M240 30 V220"/>
+                    <path class="draw" style="--len:190;--d:1.05s" d="M315 30 V220"/>
+                    <path class="draw" style="--len:190;--d:1.2s" d="M390 30 V220"/>
+                  </g>
+                  <g fill="#ffd60a">
+                    <circle class="pop" style="--d:1.4s" cx="90" cy="30" r="7"/>
+                    <circle class="pop" style="--d:1.5s" cx="390" cy="30" r="7"/>
+                    <circle class="pop" style="--d:1.6s" cx="90" cy="220" r="7"/>
+                    <circle class="pop" style="--d:1.7s" cx="390" cy="220" r="7"/>
+                    <circle class="pop" style="--d:1.8s" cx="240" cy="93" r="7"/>
+                    <circle class="pop" style="--d:1.9s" cx="240" cy="157" r="7"/>
+                  </g>
+                  <g class="fade" style="--d:1.6s">
+                    <text x="240" y="245" text-anchor="middle" class="lbl">Lx</text>
+                    <text x="420" y="130" class="lbl">Ly</text>
+                    <circle cx="30" cy="40" r="6" fill="#ffd60a"/><text x="42" y="44" class="lbl">varilla</text>
+                    <line x1="22" y1="62" x2="40" y2="62" stroke="#c98a4b" stroke-width="3"/><text x="44" y="66" class="lbl">Cu</text>
+                  </g>
+                </svg>
+              </div>
+              <h3>4. Definir la configuración de electrodos</h3>
+              <p>Con la resistividad y el área disponible se propone una geometría: una o varias <strong>varillas</strong> (casas, acometidas), un <strong>anillo</strong> (edificios, pararrayos) o una <strong>malla</strong> enterrada a unos 0,5 m (subestaciones). Se calcula la resistencia esperada con las fórmulas de la sección 3 y se ajusta el número de varillas o el espaciamiento de la retícula.</p>
+            </div>
+
+            <!-- Paso 5 -->
+            <div class="step-panel" role="tabpanel">
+              <div class="figure">
+                <svg class="diagram" viewBox="0 0 480 260" role="img" aria-label="Tensiones de paso y de contacto">
+                  <rect class="ground" x="0" y="170" width="480" height="90"/>
+                  <line class="soil-line" x1="0" y1="170" x2="480" y2="170"/>
+                  <!-- Equipotenciales -->
+                  <g fill="none" stroke="#ffd60a">
+                    <path class="draw" style="--len:120;--d:.2s" d="M100 170 A40 40 0 0 0 180 170" stroke-opacity=".9"/>
+                    <path class="draw" style="--len:220;--d:.4s" d="M70 170 A70 70 0 0 0 210 170" stroke-opacity=".6"/>
+                    <path class="draw" style="--len:320;--d:.6s" d="M40 170 A100 70 0 0 0 240 170" stroke-opacity=".35"/>
+                  </g>
+                  <!-- Equipo -->
+                  <rect class="pop" x="110" y="80" width="60" height="90" rx="4" fill="#1c2233" stroke="#9aa3b8" stroke-width="2"/>
+                  <path class="blink" d="M125 95 l8 12 h-6 l8 14" fill="none" stroke="#ff5d73" stroke-width="3" stroke-linecap="round"/>
+                  <!-- Persona tocando -->
+                  <g class="fade" style="--d:.8s" stroke="#e8ebf3" stroke-width="3" fill="none" stroke-linecap="round">
+                    <circle cx="215" cy="88" r="10"/>
+                    <path d="M215 98 V138 M215 138 L205 170 M215 138 L225 170 M215 108 L172 104"/>
+                  </g>
+                  <path class="flow" style="--d:1s" d="M172 104 L215 108 L215 138 L205 170" fill="none" stroke="#ff5d73" stroke-width="2"/>
+                  <text x="215" y="66" text-anchor="middle" class="hl">E contacto</text>
+                  <!-- Persona caminando -->
+                  <g class="fade" style="--d:1.1s" stroke="#e8ebf3" stroke-width="3" fill="none" stroke-linecap="round">
+                    <circle cx="360" cy="88" r="10"/>
+                    <path d="M360 98 V138 M360 138 L332 170 M360 138 L388 170 M360 108 L344 128 M360 108 L376 128"/>
+                  </g>
+                  <path class="flow" d="M332 170 L360 138 L388 170" fill="none" stroke="#ff5d73" stroke-width="2"/>
+                  <text x="360" y="66" text-anchor="middle" class="hl">E paso</text>
+                  <g class="fade" style="--d:1.3s"><line x1="332" y1="185" x2="388" y2="185" stroke="#9aa3b8"/><text x="360" y="200" text-anchor="middle" class="lbl">1 m</text></g>
+                  <text x="240" y="245" text-anchor="middle" class="lbl">líneas equipotenciales alrededor del punto de falla</text>
+                </svg>
+              </div>
+              <h3>5. Verificar tensiones de paso y contacto</h3>
+              <p>Se calcula la elevación de potencial de tierra (GPR = I<sub>g</sub>·R<sub>g</sub>) y las tensiones de malla y de paso reales. Deben ser <strong>menores que las tolerables</strong> por el cuerpo humano para el tiempo de despeje. Si no se cumple, se densifica la malla, se añaden varillas, se usa una capa superficial de grava o se reduce el tiempo de despeje.</p>
+            </div>
+
+            <!-- Paso 6 -->
+            <div class="step-panel" role="tabpanel">
+              <div class="figure">
+                <svg class="diagram" viewBox="0 0 480 260" role="img" aria-label="Medición por el método de caída de potencial">
+                  <rect class="ground" x="0" y="140" width="480" height="120"/>
+                  <line class="soil-line" x1="0" y1="140" x2="480" y2="140"/>
+                  <g class="pop">
+                    <rect x="170" y="18" width="110" height="52" rx="8" fill="#1c2233" stroke="#ffd60a" stroke-width="2"/>
+                    <text x="225" y="50" text-anchor="middle" class="hl" style="font-family:var(--mono)">8,4 Ω</text>
+                    <rect class="blink" x="262" y="26" width="8" height="8" rx="2" fill="#52d17c"/>
+                  </g>
+                  <path class="draw" style="--len:180;--d:.3s" d="M170 44 H70 V125" fill="none" stroke="#52d17c" stroke-width="2"/>
+                  <path class="draw" style="--len:100;--d:.5s" d="M240 70 V90 H290 V125" fill="none" stroke="#ffd60a" stroke-width="2"/>
+                  <path class="draw" style="--len:240;--d:.7s" d="M280 44 H430 V125" fill="none" stroke="#4cc9f0" stroke-width="2"/>
+                  <g fill="#c9a36a" class="fade" style="--d:.9s">
+                    <rect x="66" y="125" width="8" height="60"/><rect x="287" y="125" width="6" height="35"/><rect x="427" y="125" width="6" height="35"/>
+                  </g>
+                  <g class="fade" style="--d:1s">
+                    <text x="42" y="120" class="lbl">E (SPT)</text><text x="300" y="120" class="lbl">P</text><text x="440" y="120" class="lbl">C</text>
+                  </g>
+                  <path class="flow" d="M74 178 Q250 215 430 160" fill="none" stroke="#4cc9f0" stroke-width="2"/>
+                  <g class="fade" style="--d:1.2s" stroke="#9aa3b8">
+                    <line x1="70" y1="224" x2="290" y2="224"/><line x1="70" y1="242" x2="430" y2="242"/>
+                  </g>
+                  <g class="fade" style="--d:1.2s">
+                    <text x="180" y="219" text-anchor="middle" class="hl">0,62·D</text>
+                    <text x="250" y="256" text-anchor="middle" class="lbl">D</text>
+                  </g>
+                </svg>
+              </div>
+              <h3>6. Construir, medir y documentar</h3>
+              <p>Tras la construcción se mide la resistencia con el <strong>método de caída de potencial</strong>: el electrodo de corriente C se ubica lejos (D ≥ 5 veces la mayor dimensión del SPT, como guía) y el de potencial P a cerca del 62 % de D. El valor medido se compara con el de diseño y con los valores de referencia del RETIE, y se deja registro para el mantenimiento periódico.</p>
+            </div>
+
+            <div class="step-controls">
+              <button class="btn" data-prev>← Anterior</button>
+              <button class="btn primary" data-play>▶ Reproducir</button>
+              <div class="progress"><span></span></div>
+              <button class="btn" data-next>Siguiente →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Fórmulas -->
+    <section id="formulas">
+      <div class="container">
+        <div class="section-title reveal"><span class="num">3</span><h2>Fórmulas clave</h2></div>
+        <div class="formulas">
+          <div class="formula reveal" data-delay="1">
+            <h4>Resistividad aparente (Wenner)</h4>
+            <div class="eq">$$\rho = 2\pi\, a\, R$$</div>
+            <p class="where"><b>ρ</b> resistividad [Ω·m] · <b>a</b> separación entre electrodos [m] · <b>R</b> lectura del telurómetro [Ω]. Válida si la profundidad de enterramiento es pequeña frente a <em>a</em>.</p>
+          </div>
+          <div class="formula reveal" data-delay="2">
+            <h4>Resistencia de una varilla (Dwight)</h4>
+            <div class="eq">$$R = \frac{\rho}{2\pi L}\left[\ln\!\left(\frac{4L}{r}\right) - 1\right]$$</div>
+            <p class="where"><b>L</b> longitud enterrada [m] · <b>r</b> radio de la varilla [m].</p>
+          </div>
+          <div class="formula reveal" data-delay="3">
+            <h4>Resistencia de una malla (Sverak, IEEE 80)</h4>
+            <div class="eq">$$R_g = \rho\left[\frac{1}{L_T} + \frac{1}{\sqrt{20A}}\left(1 + \frac{1}{1 + h\sqrt{20/A}}\right)\right]$$</div>
+            <p class="where"><b>L<sub>T</sub></b> longitud total de conductor enterrado [m] · <b>A</b> área de la malla [m²] · <b>h</b> profundidad [m].</p>
+          </div>
+          <div class="formula reveal" data-delay="4">
+            <h4>Sección mínima del conductor</h4>
+            <div class="eq">$$A_{mm^2} = \frac{I \cdot K_f \cdot \sqrt{t_c}}{1{,}9737}$$</div>
+            <p class="where"><b>I</b> corriente de falla [kA] · <b>t<sub>c</sub></b> tiempo de despeje [s] · <b>K<sub>f</sub></b> constante del material (≈ 7,00 para cobre blando, con T<sub>m</sub> = 1083 °C y T<sub>a</sub> = 40 °C).</p>
+          </div>
+          <div class="formula reveal" data-delay="5">
+            <h4>Tensión de contacto tolerable (persona de 50 kg)</h4>
+            <div class="eq">$$E_{c} = \left(1000 + 1{,}5\, C_s\, \rho_s\right)\frac{0{,}116}{\sqrt{t_s}}$$</div>
+            <p class="where"><b>C<sub>s</sub></b> factor de la capa superficial · <b>ρ<sub>s</sub></b> resistividad de la capa superficial [Ω·m] · <b>t<sub>s</sub></b> duración del choque [s].</p>
+          </div>
+          <div class="formula reveal" data-delay="6">
+            <h4>Tensión de paso tolerable (persona de 50 kg)</h4>
+            <div class="eq">$$E_{p} = \left(1000 + 6\, C_s\, \rho_s\right)\frac{0{,}116}{\sqrt{t_s}}$$</div>
+            <p class="where">Criterio de IEEE Std 80. El RETIE fija además valores máximos de tensión de contacto en función del tiempo de despeje.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Normativa -->
+    <section id="normativa">
+      <div class="container">
+        <div class="section-title reveal"><span class="num">4</span><h2>Normativa colombiana aplicable</h2></div>
+        <div class="norms">
+          <div class="norm reveal" data-delay="1">
+            <span class="tag">RETIE</span>
+            <h4>Requisitos de puesta a tierra</h4>
+            <p>Capítulo de puestas a tierra (artículo 15 en la versión de 2013): diseño basado en tensiones de paso y contacto, materiales y electrodos certificados, conexiones, mediciones y mantenimiento. Incluye valores de referencia de resistencia de puesta a tierra.</p>
+          </div>
+          <div class="norm reveal" data-delay="2">
+            <span class="tag">NTC 2050</span>
+            <h4>Sección 250 — Puesta a tierra y unión</h4>
+            <p>Electrodos permitidos, conductor del electrodo de puesta a tierra, puentes de unión equipotencial y conductores de puesta a tierra de equipos en baja tensión.</p>
+          </div>
+          <div class="norm reveal" data-delay="3">
+            <span class="tag">NTC 4552</span>
+            <h4>Protección contra rayos</h4>
+            <p>Define la puesta a tierra del sistema de protección externa contra rayos (disposiciones tipo A y B) y la equipotencialización con el SPT de la instalación.</p>
+          </div>
+          <div class="norm reveal" data-delay="4">
+            <span class="tag">Ref. internacional</span>
+            <h4>IEEE Std 80 e IEEE Std 81</h4>
+            <p>Guía de diseño de mallas de subestaciones (IEEE 80) y métodos de medición de resistividad y resistencia (IEEE 81), usadas como referencia técnica.</p>
+          </div>
+        </div>
+
+        <div class="panel reveal" style="margin-top:20px">
+          <h3>Valores de referencia de resistencia de puesta a tierra (RETIE)</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Aplicación</th><th>Valor máximo</th></tr></thead>
+              <tbody>
+                <tr><td>Subestaciones de alta y extra alta tensión</td><td>1 Ω</td></tr>
+                <tr><td>Subestaciones de media tensión</td><td>10 Ω</td></tr>
+                <tr><td>Protección contra rayos</td><td>10 Ω</td></tr>
+                <tr><td>Estructuras de líneas o redes con cable de guarda</td><td>20 Ω</td></tr>
+                <tr><td>Neutro de acometida en baja tensión</td><td>25 Ω</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="calc-note" style="margin-top:10px">Tomado de la tabla de valores de referencia del RETIE (versión 2013). Cumplir este valor no exime de verificar las tensiones de paso y contacto.</p>
+        </div>
+
+        <div class="notice reveal">
+          <span class="ico">⚠️</span>
+          <p><strong>Verifique la versión vigente.</strong> El RETIE fue actualizado en 2024 (Resolución 40117 del Ministerio de Minas y Energía) y la numeración de artículos y algunos valores pueden haber cambiado. Consulte siempre el texto oficial antes de diseñar o certificar.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Calculadora -->
+    <section id="calculadora">
+      <div class="container">
+        <div class="section-title reveal"><span class="num">5</span><h2>Calculadora</h2></div>
+        <div class="panel reveal">
+
+          <form class="calc" id="form-wenner" autocomplete="off">
+            <div>
+              <h3>A. Resistividad del terreno (Wenner)</h3>
+              <div class="row-2">
+                <div class="field">
+                  <label for="w-a">Separación a [m]</label>
+                  <input id="w-a" type="number" min="0.1" step="0.1" value="4">
+                </div>
+                <div class="field">
+                  <label for="w-r">Lectura R [Ω]</label>
+                  <input id="w-r" type="number" min="0" step="0.01" value="3.8">
+                </div>
+              </div>
+            </div>
+            <div class="results">
+              <div class="result big"><span>Resistividad ρ</span><strong id="w-rho">—</strong></div>
+              <div id="w-status" class="status info">—</div>
+              <button type="button" class="btn" id="w-use">Usar esta ρ en la calculadora B ↓</button>
+            </div>
+          </form>
+
+          <form class="calc" id="form-varilla" autocomplete="off">
+            <div>
+              <h3>B. Resistencia de una varilla</h3>
+              <div class="field">
+                <label for="v-rho">Resistividad del terreno ρ [Ω·m]</label>
+                <input id="v-rho" type="number" min="1" step="1" value="100">
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label for="v-l">Longitud enterrada L [m]</label>
+                  <input id="v-l" type="number" min="0.5" step="0.1" value="2.4">
+                  <small>El RETIE exige mínimo 2,4 m.</small>
+                </div>
+                <div class="field">
+                  <label for="v-d">Diámetro</label>
+                  <select id="v-d">
+                    <option value="12.7">1/2" (12,7 mm)</option>
+                    <option value="15.9" selected>5/8" (15,9 mm)</option>
+                    <option value="19.1">3/4" (19,1 mm)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label for="v-lim">Comparar con valor de referencia</label>
+                <select id="v-lim">
+                  <option value="25">Neutro de acometida BT — 25 Ω</option>
+                  <option value="10">Subestación de media tensión — 10 Ω</option>
+                  <option value="10">Protección contra rayos — 10 Ω</option>
+                  <option value="1">Subestación AT/EAT — 1 Ω</option>
+                </select>
+              </div>
+            </div>
+            <div class="results">
+              <div class="result big"><span>Resistencia estimada</span><strong id="v-r">—</strong></div>
+              <div class="result"><span>Varillas en paralelo necesarias (aprox.)</span><strong id="v-n">—</strong></div>
+              <div id="v-status" class="status info">—</div>
+              <p class="calc-note">Fórmula de Dwight para una varilla en terreno homogéneo. El número de varillas es una estimación con separación ≥ 2L y un factor de 1,2 por interferencia mutua; confirme con un diseño detallado y con la medición en sitio.</p>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <nav class="pager">
+          <a href="../index.html"><small>← Volver</small>Inicio</a>
+          <a class="next" href="energia-solar.html"><small>Siguiente →</small>Energía solar fotovoltaica</a>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Wiki Eléctrica CO · <span data-year></span> · Contenido con fines educativos. No reemplaza el criterio de un profesional con matrícula vigente ni el texto oficial de las normas.</p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/puesta-a-tierra.js"></script>
+</body>
+</html>

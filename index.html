@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wiki Eléctrica Colombia</title>
+  <meta name="description" content="Wiki de ingeniería eléctrica en Colombia: puesta a tierra, energía solar fotovoltaica, selección de conductores y normativa (RETIE, NTC 2050, NTC 4552, Ley 1715, CREG 174).">
+  <meta name="theme-color" content="#0a0d14">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container">
+      <a class="brand" href="index.html">
+        <svg viewBox="0 0 24 24" fill="#ffd60a" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        <span>Wiki <b>Eléctrica</b> CO</span>
+      </a>
+      <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <nav class="nav">
+        <a href="index.html" class="active">Inicio</a>
+        <a href="temas/puesta-a-tierra.html">Puesta a tierra</a>
+        <a href="temas/energia-solar.html">Solar FV</a>
+        <a href="temas/seleccion-conductores.html">Conductores</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <span class="kicker reveal">⚡ Ingeniería eléctrica · Colombia</span>
+        <h1 class="reveal" data-delay="1">Conceptos, procesos y <span class="accent">calculadoras</span> para el día a día del ingeniero electricista</h1>
+        <p class="lead reveal" data-delay="2">Una wiki abierta y en español con explicaciones cortas, diagramas animados paso a paso, fórmulas clave y la normativa colombiana aplicable a cada tema.</p>
+      </div>
+      <svg class="hero-wave" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+        <path class="second" d="M0 45 C 50 5, 100 5, 150 45 S 250 85, 300 45 S 400 5, 450 45 S 550 85, 600 45 S 700 5, 750 45 S 850 85, 900 45 S 1000 5, 1050 45 S 1150 85, 1200 45"/>
+        <path d="M0 45 C 75 -10, 125 -10, 200 45 S 325 100, 400 45 S 525 -10, 600 45 S 725 100, 800 45 S 925 -10, 1000 45 S 1125 100, 1200 45"/>
+      </svg>
+    </section>
+
+    <section id="temas">
+      <div class="container">
+        <h2 class="reveal">Temas</h2>
+        <p class="muted reveal">Elija un tema. Los marcados como <em>próximamente</em> están en preparación.</p>
+
+        <div class="cards">
+          <!-- ===== Temas disponibles ===== -->
+          <a class="card live reveal" data-delay="1" href="temas/puesta-a-tierra.html">
+            <span class="badge new">Nuevo</span>
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2v10M4 12h16M7.5 16h9M10.5 20h3"/></svg></div>
+            <h3>Puesta a tierra</h3>
+            <p>Resistividad del terreno, diseño de electrodos y mallas, tensiones de paso y contacto según RETIE.</p>
+            <span class="go">Ver tema <span>→</span></span>
+          </a>
+
+          <a class="card live reveal" data-delay="2" href="temas/energia-solar.html">
+            <span class="badge new">Nuevo</span>
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 15l2.5-8h13l2.5 8zM4.2 11h15.6M10 7l-.8 8M14 7l.8 8M12 15v4M8 21h8"/><circle cx="19" cy="3.5" r="1.5"/></svg></div>
+            <h3>Energía solar fotovoltaica</h3>
+            <p>Dimensionamiento de sistemas FV, configuración de strings, autogeneración e incentivos (Ley 1715, CREG 174).</p>
+            <span class="go">Ver tema <span>→</span></span>
+          </a>
+
+          <a class="card live reveal" data-delay="3" href="temas/seleccion-conductores.html">
+            <span class="badge new">Nuevo</span>
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M2 8c5 0 5 9 10 9s5-9 10-9"/><circle cx="12" cy="17" r="3"/><circle cx="12" cy="17" r="1"/></svg></div>
+            <h3>Selección de conductores</h3>
+            <p>Ampacidad, factores de corrección, caída de tensión y verificación por cortocircuito según NTC 2050.</p>
+            <span class="go">Ver tema <span>→</span></span>
+          </a>
+
+          <!-- ===== Próximamente =====
+               Para publicar uno: cambie <div class="card soon"> por
+               <a class="card live" href="temas/archivo.html"> y quite el badge. -->
+          <div class="card soon reveal" data-delay="4" aria-disabled="true">
+            <span class="badge">Próximamente</span>
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/><path d="M13 7l-3 5h4l-3 5"/></svg></div>
+            <h3>Estudios de cortocircuito y coordinación de protecciones</h3>
+            <p>Cálculo de corrientes de falla, curvas tiempo-corriente y selectividad.</p>
+          </div>
+
+          <div class="card soon reveal" data-delay="5" aria-disabled="true">
+            <span class="badge">Próximamente</span>
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M2 14h5l2.5-11 3 18 2.5-7h7"/></svg></div>
+            <h3>Transitorios y coordinación de aislamiento</h3>
+            <p>Sobretensiones por maniobra y rayo, niveles BIL y DPS.</p>
+          </div>
+
+          <div class="card soon reveal" data-delay="6" aria-disabled="true">
+            <span class="badge">Próximamente</span>
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2 6 22M12 2l6 20M8.2 14h7.6M9.8 8h4.4M4 6h16M6 10h12"/></svg></div>
+            <h3>Subestaciones</h3>
+            <p>Configuraciones de barras, equipos de patio, distancias de seguridad.</p>
+          </div>
+
+          <div class="card soon reveal" data-delay="7" aria-disabled="true">
+            <span class="badge">Próximamente</span>
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2z"/></svg></div>
+            <h3>Iluminación</h3>
+            <p>Niveles de iluminancia, método de lúmenes y requisitos del RETILAP.</p>
+          </div>
+
+          <div class="card soon reveal" data-delay="7" aria-disabled="true">
+            <span class="badge">Próximamente</span>
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M2 12c1.5-6 3.5-6 5 0s3.5 6 5 0 3.5-6 5 0 3 5 5 1"/><path d="M2 20h20" stroke-dasharray="2 2"/></svg></div>
+            <h3>Calidad de energía</h3>
+            <p>Armónicos, flicker, factor de potencia, huecos y elevaciones de tensión.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="normativa">
+      <div class="container">
+        <h2 class="reveal">Marco normativo de referencia</h2>
+        <p class="muted reveal">Normas colombianas que aparecen a lo largo de la wiki. Cada tema indica cuáles aplican y en qué parte.</p>
+        <div class="norms">
+          <div class="norm reveal" data-delay="1">
+            <span class="tag">RETIE</span>
+            <h4>Reglamento Técnico de Instalaciones Eléctricas</h4>
+            <p>Reglamento obligatorio del Ministerio de Minas y Energía para generación, transmisión, distribución y uso final.</p>
+          </div>
+          <div class="norm reveal" data-delay="2">
+            <span class="tag">NTC 2050</span>
+            <h4>Código Eléctrico Colombiano</h4>
+            <p>Norma técnica de ICONTEC basada en el NEC (NFPA 70); el RETIE la hace de obligatorio cumplimiento en varias de sus partes.</p>
+          </div>
+          <div class="norm reveal" data-delay="3">
+            <span class="tag">NTC 4552</span>
+            <h4>Protección contra descargas eléctricas atmosféricas</h4>
+            <p>Gestión del riesgo, sistemas de protección externa e interna contra rayos (partes 1 a 3, basada en IEC 62305).</p>
+          </div>
+          <div class="norm reveal" data-delay="4">
+            <span class="tag">Ley 1715</span>
+            <h4>Ley 1715 de 2014</h4>
+            <p>Integración de fuentes no convencionales de energía; incentivos tributarios. Modificada por la Ley 2099 de 2021.</p>
+          </div>
+          <div class="norm reveal" data-delay="5">
+            <span class="tag">CREG 174</span>
+            <h4>Resolución CREG 174 de 2021</h4>
+            <p>Reglas para autogeneración a pequeña escala y generación distribuida en el Sistema Interconectado Nacional.</p>
+          </div>
+        </div>
+        <div class="notice reveal">
+          <span class="ico">⚠️</span>
+          <p><strong>Verifique siempre la versión vigente.</strong> Los reglamentos y normas se actualizan (por ejemplo, el RETIE fue actualizado en 2024). Antes de diseñar, construir o certificar, consulte el texto oficial publicado por el Ministerio de Minas y Energía, la CREG, ICONTEC o el Diario Oficial.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Wiki Eléctrica CO · <span data-year></span> · Contenido con fines educativos. No reemplaza el criterio de un profesional con matrícula vigente ni el texto oficial de las normas.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
