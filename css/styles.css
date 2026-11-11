@@ -361,14 +361,15 @@ section[id] { scroll-margin-top: 70px; }  /* el título no queda bajo la barra f
 .step-panel { display: none; }
 .step-panel.active { display: block; animation: fade-up 0.5s ease both; }
 .step-panel h3 { color: var(--accent); }
-.step-panel .figure {
+.step-panel .figure, .calc .figure {
   background: radial-gradient(circle at 50% 30%, #161d2e, #0d111b);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 8px;
   margin-bottom: 14px;
 }
-.step-panel svg.diagram { display: block; width: 100%; height: auto; max-height: 300px; }
+.step-panel svg.diagram, .calc svg.diagram { display: block; width: 100%; height: auto; max-height: 300px; }
+.calc .figure { margin-bottom: 0; }
 .step-controls { display: flex; gap: 10px; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 14px; flex-wrap: wrap; }
 .progress { flex: 1; min-width: 120px; height: 4px; background: var(--border); border-radius: 4px; overflow: hidden; }
 .progress span { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.4s; }
@@ -390,7 +391,8 @@ section[id] { scroll-margin-top: 70px; }  /* el título no queda bajo la barra f
 .btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
 /* ---------- Clases de animación SVG ----------
-   Sólo se ejecutan cuando el paso está activo.
+   Sólo se ejecutan cuando el paso está activo, o siempre en un
+   diagrama con la clase "live" (por ejemplo, el de una calculadora).
    Use style="--d:0.6s" para retrasar un elemento. */
 .diagram { font-size: 13px; }
 .diagram text { font-family: var(--font); fill: var(--text); }
@@ -400,20 +402,20 @@ section[id] { scroll-margin-top: 70px; }  /* el título no queda bajo la barra f
 .diagram .ground { fill: #2a2117; }
 .diagram .soil-line { stroke: #6b5536; stroke-width: 2; }
 
-.step-panel.active .draw {
+.step-panel.active .draw, .diagram.live .draw {
   stroke-dasharray: var(--len, 600);
   stroke-dashoffset: var(--len, 600);
   animation: draw 1.4s ease forwards;
   animation-delay: var(--d, 0s);
 }
-.step-panel.active .pop {
+.step-panel.active .pop, .diagram.live .pop {
   opacity: 0;
   transform-box: fill-box;
   transform-origin: center;
   animation: pop 0.5s cubic-bezier(.2,1.4,.4,1) forwards;
   animation-delay: var(--d, 0s);
 }
-.step-panel.active .fade {
+.step-panel.active .fade, .diagram.live .fade {
   opacity: 0;
   animation: fade 0.6s ease forwards;
   animation-delay: var(--d, 0s);
@@ -432,12 +434,12 @@ section[id] { scroll-margin-top: 70px; }  /* el título no queda bajo la barra f
   animation: growx 0.9s cubic-bezier(.2,.8,.2,1) forwards;
   animation-delay: var(--d, 0s);
 }
-.step-panel.active .flow {
+.step-panel.active .flow, .diagram.live .flow {
   stroke-dasharray: 8 8;
   animation: dash-move 0.9s linear infinite;
 }
 .step-panel.active .flow.rev { animation-direction: reverse; }
-.step-panel.active .pulse {
+.step-panel.active .pulse, .diagram.live .pulse {
   transform-box: fill-box;
   transform-origin: center;
   animation: pulse 1.6s ease-in-out infinite;
@@ -558,7 +560,7 @@ section[id] { scroll-margin-top: 70px; }  /* el título no queda bajo la barra f
 .result:last-of-type { border-bottom: none; }
 .result span { color: var(--muted); font-size: 0.92rem; }
 .result strong { font-family: var(--mono); font-size: 1.15rem; color: var(--text); text-align: right; }
-.result.big strong { font-size: 1.6rem; color: var(--accent); text-shadow: 0 0 18px rgba(255, 214, 10, 0.35); }
+.result.big strong { font-size: 1.6rem; white-space: nowrap; color: var(--accent); text-shadow: 0 0 18px rgba(255, 214, 10, 0.35); }
 .status { padding: 10px 14px; border-radius: 10px; font-size: 0.92rem; font-weight: 600; }
 .status.ok { background: rgba(82, 209, 124, 0.1); color: var(--green); border: 1px solid rgba(82, 209, 124, 0.35); }
 .status.bad { background: rgba(255, 93, 115, 0.1); color: var(--red); border: 1px solid rgba(255, 93, 115, 0.35); }
@@ -566,6 +568,30 @@ section[id] { scroll-margin-top: 70px; }  /* el título no queda bajo la barra f
 .calc-note { font-size: 0.82rem; color: var(--muted); margin: 0; }
 .flash { animation: flash 0.5s ease; }
 @keyframes flash { from { color: var(--accent); } }
+
+/* Calculadora con pasos intermedios (ecuación + valores), a todo el ancho del formulario */
+.calc[id] { scroll-margin-top: 80px; }
+.calc > * { min-width: 0; }
+.calc-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 16px; }
+.calc-actions .btn { padding: 6px 12px; font-size: 0.85rem; }
+.calc-steps { grid-column: 1 / -1; display: grid; gap: 16px; grid-template-columns: 1fr; }
+.calc-steps > * { min-width: 0; }
+.calc-steps .wide { grid-column: 1 / -1; }
+@media (min-width: 700px) {
+  .calc-steps { grid-template-columns: 1fr 1fr; }
+  .calc-steps .span-2 { grid-column: span 2; }
+}
+@media (min-width: 1100px) {
+  .calc-steps { grid-template-columns: repeat(3, 1fr); }
+  .calc-steps .span-xl { grid-column: span 2; }
+}
+.calc-steps .formula { display: grid; gap: 8px; align-content: start; }
+.calc-steps .formula h4 { margin: 0; color: var(--accent); }
+.calc-steps .formula .eq { padding: 2px 0; font-size: 0.95rem; }
+.calc-steps .result { padding-bottom: 8px; }
+.calc-steps .result strong { font-size: 1rem; }
+.result-cols { display: grid; gap: 8px 28px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+.results .keypoints { font-size: 0.9rem; }
 
 /* ---------- Tabla ---------- */
 .table-wrap { overflow-x: auto; }

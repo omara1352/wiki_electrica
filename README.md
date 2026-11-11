@@ -6,7 +6,7 @@ Wiki web de ingeniería eléctrica para Colombia, en español. Sitio estático (
 
 | Tema | Calculadora |
 |------|-------------|
-| [Puesta a tierra](temas/puesta-a-tierra.html) | Resistividad (Wenner) y resistencia de una varilla |
+| [Puesta a tierra](temas/puesta-a-tierra.html) | Resistividad (Wenner), resistencia de una varilla y diseño de malla (IEEE Std 80) con tensiones de paso y de contacto |
 | [Energía solar fotovoltaica](temas/energia-solar.html) | Número de paneles y módulos en serie por string |
 | [Selección de conductores](temas/seleccion-conductores.html) | Calibre por ampacidad y caída de tensión |
 
