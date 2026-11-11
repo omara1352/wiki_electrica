@@ -159,6 +159,7 @@ p { margin: 0 0 1em; }
 
 /* ---------- Secciones ---------- */
 section { padding: 40px 0; }
+section[id] { scroll-margin-top: 70px; }  /* el título no queda bajo la barra fija al saltar a un ancla */
 .section-title { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
 .section-title .num {
   flex: none;
@@ -253,6 +254,12 @@ section { padding: 40px 0; }
 }
 .card .go span { transition: transform 0.3s; }
 .card.live:hover .go span { transform: translateX(6px); }
+
+/* Botón dentro de una tarjeta (sección Herramientas) */
+.card .btn { align-self: flex-start; margin-top: 10px; }
+.card .btn:hover { text-decoration: none; }
+.card .btn span { display: inline-block; }
+.card.live:hover .btn span { animation: bob 1s ease-in-out infinite; }
 
 .card.soon { opacity: 0.6; cursor: default; }
 .card.soon .icon { background: rgba(154, 163, 184, 0.08); border-color: var(--border); }

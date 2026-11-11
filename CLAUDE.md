@@ -23,6 +23,7 @@ js/<tema>.js           Calculadora de cada tema
 js/main.js             Comportamiento compartido y utilidades window.Wiki
 css/styles.css         Estilos compartidos (colores en variables de :root)
 assets/favicon.svg     Ícono
+herramientas/          Archivos descargables (por ejemplo, cuadro_de_cargas.xlsx) y el script que los genera
 ```
 
 Nombres de archivo en minúsculas, sin tildes, con guiones (`seleccion-conductores`).
