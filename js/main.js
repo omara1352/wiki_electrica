@@ -18,6 +18,13 @@
       var open = nav.classList.toggle("open");
       menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
     });
+    // Cierra el menú al elegir un enlace (útil con anclas de la misma página)
+    nav.addEventListener("click", function (e) {
+      if (e.target.tagName === "A") {
+        nav.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      }
+    });
   }
 
   /* ---------- Aparición al hacer scroll ---------- */

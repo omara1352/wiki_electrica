@@ -10,6 +10,12 @@ Wiki web de ingeniería eléctrica para Colombia, en español. Sitio estático (
 | [Energía solar fotovoltaica](temas/energia-solar.html) | Número de paneles y módulos en serie por string |
 | [Selección de conductores](temas/seleccion-conductores.html) | Calibre por ampacidad y caída de tensión |
 
+### Herramientas
+
+| Herramienta | Qué hace |
+|-------------|----------|
+| [Cuadro de cargas (Excel)](herramientas/cuadro_de_cargas.xlsx) | Reparto de circuitos entre fases R, S y T, breaker y calibre AWG sugeridos, factores de demanda y acometida (NTC 2050 y RETIE) |
+
 Próximamente: cortocircuito y coordinación de protecciones, transitorios y coordinación de aislamiento, subestaciones, iluminación y calidad de energía.
 
 Cada tema incluye: explicación corta, proceso paso a paso con diagramas SVG animados, fórmulas clave, normativa colombiana (RETIE, NTC 2050, NTC 4552, Ley 1715, CREG 174 de 2021) y una calculadora.
@@ -23,6 +29,7 @@ css/styles.css              Estilos (colores en las variables de :root)
 js/main.js                  Menú, animaciones de scroll, paso a paso, fórmulas
 js/<tema>.js                Calculadora de cada tema
 assets/favicon.svg          Ícono
+herramientas/               Archivos descargables (cuadro de cargas en Excel y el script que lo genera)
 .nojekyll                   Indica a GitHub Pages que sirva los archivos tal cual
 ```
 
