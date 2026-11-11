@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Puesta a tierra · Wiki Eléctrica CO</title>
-  <meta name="description" content="Puesta a tierra: resistividad del terreno, diseño de electrodos y mallas, tensiones de paso y contacto, normativa RETIE y calculadora de resistencia de electrodo.">
+  <meta name="description" content="Puesta a tierra: resistividad del terreno, diseño de electrodos y mallas, tensiones de paso y contacto, normativa RETIE y calculadoras de resistividad, resistencia de electrodo y diseño de malla según IEEE Std 80.">
   <meta name="theme-color" content="#0a0d14">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -260,7 +260,7 @@
                 </svg>
               </div>
               <h3>5. Verificar tensiones de paso y contacto</h3>
-              <p>Se calcula la elevación de potencial de tierra (GPR = I<sub>g</sub>·R<sub>g</sub>) y las tensiones de malla y de paso reales. Deben ser <strong>menores que las tolerables</strong> por el cuerpo humano para el tiempo de despeje. Si no se cumple, se densifica la malla, se añaden varillas, se usa una capa superficial de grava o se reduce el tiempo de despeje.</p>
+              <p>Se calcula la elevación de potencial de tierra (GPR = I<sub>g</sub>·R<sub>g</sub>) y las tensiones de malla y de paso reales. Deben ser <strong>menores que las tolerables</strong> por el cuerpo humano para el tiempo de despeje. Si no se cumple, se densifica la malla, se añaden varillas, se usa una capa superficial de grava o se reduce el tiempo de despeje. Puede hacer esta verificación con la <a href="#form-malla">calculadora C</a>.</p>
             </div>
 
             <!-- Paso 6 -->
@@ -464,6 +464,271 @@
               <p class="calc-note">Fórmula de Dwight para una varilla en terreno homogéneo. El número de varillas es una estimación con separación ≥ 2L y un factor de 1,2 por interferencia mutua; confirme con un diseño detallado y con la medición en sitio.</p>
             </div>
           </form>
+
+          <form class="calc" id="form-malla" autocomplete="off">
+            <div>
+              <h3>C. Diseño de malla de puesta a tierra (IEEE Std 80)</h3>
+              <p class="calc-note">Malla rectangular de retícula uniforme en suelo homogéneo. Cargue un ejemplo resuelto del Anexo B de IEEE Std 80 o edite los datos:</p>
+              <div class="calc-actions">
+                <button type="button" class="btn" data-ejemplo="b1">B.1 · sin varillas</button>
+                <button type="button" class="btn" data-ejemplo="b2">B.2 · con varillas</button>
+                <button type="button" class="btn" data-ejemplo="b3">B.3 · rectangular</button>
+              </div>
+
+              <div class="field">
+                <label for="m-rho">Resistividad del suelo ρ [Ω·m]</label>
+                <input id="m-rho" type="number" min="1" step="1" value="400">
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label for="m-rhos">Resistividad de la gravilla ρ<sub>s</sub> [Ω·m]</label>
+                  <input id="m-rhos" type="number" min="1" step="50" value="2500">
+                  <small>Capa superficial, valor en húmedo.</small>
+                </div>
+                <div class="field">
+                  <label for="m-hs">Espesor de la gravilla h<sub>s</sub> [m]</label>
+                  <input id="m-hs" type="number" min="0" step="0.01" value="0.102">
+                  <small>0 = sin capa superficial.</small>
+                </div>
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label for="m-if">Corriente de falla simétrica I<sub>f</sub> [A]</label>
+                  <input id="m-if" type="number" min="1" step="10" value="3180">
+                  <small>Falla a tierra (3I<sub>0</sub>), valor eficaz.</small>
+                </div>
+                <div class="field">
+                  <label for="m-sf">Factor de división de corriente S<sub>f</sub></label>
+                  <input id="m-sf" type="number" min="0.01" max="1" step="0.01" value="0.6">
+                  <small>Fracción de I<sub>f</sub> que entra a la malla.</small>
+                </div>
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label for="m-xr">Relación X/R</label>
+                  <input id="m-xr" type="number" min="0" step="0.01" value="3.33">
+                  <small>En el punto de falla, a 60 Hz.</small>
+                </div>
+                <div class="field">
+                  <label for="m-df">Factor de decremento D<sub>f</sub> (opcional)</label>
+                  <input id="m-df" type="number" min="1" step="0.001" placeholder="Se calcula con X/R">
+                  <small>Si se llena, reemplaza al calculado.</small>
+                </div>
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label for="m-tf">Tiempo de despeje de la falla t<sub>f</sub> [s]</label>
+                  <input id="m-tf" type="number" min="0.03" max="3" step="0.05" value="0.5">
+                </div>
+                <div class="field">
+                  <label for="m-peso">Peso de la persona</label>
+                  <select id="m-peso">
+                    <option value="50">50 kg (k = 0,116)</option>
+                    <option value="70" selected>70 kg (k = 0,157)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label for="m-lx">Largo de la malla L<sub>x</sub> [m]</label>
+                  <input id="m-lx" type="number" min="1" step="1" value="70">
+                </div>
+                <div class="field">
+                  <label for="m-ly">Ancho de la malla L<sub>y</sub> [m]</label>
+                  <input id="m-ly" type="number" min="1" step="1" value="70">
+                </div>
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label for="m-d">Espaciamiento entre conductores D [m]</label>
+                  <input id="m-d" type="number" min="0.5" step="0.5" value="7">
+                </div>
+                <div class="field">
+                  <label for="m-h">Profundidad de la malla h [m]</label>
+                  <input id="m-h" type="number" min="0.25" max="2.5" step="0.05" value="0.5">
+                </div>
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label for="m-nr">Número de varillas</label>
+                  <input id="m-nr" type="number" min="0" step="1" value="20">
+                </div>
+                <div class="field">
+                  <label for="m-lr">Longitud de cada varilla L<sub>r</sub> [m]</label>
+                  <input id="m-lr" type="number" min="0.5" step="0.1" value="7.5">
+                </div>
+              </div>
+              <div class="field">
+                <label for="m-ubic">Ubicación de las varillas</label>
+                <select id="m-ubic">
+                  <option value="perimetro" selected>En las esquinas o el perímetro (K<sub>ii</sub> = 1)</option>
+                  <option value="interior">Pocas varillas, ninguna en esquinas ni perímetro</option>
+                </select>
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label for="m-mat">Material del conductor</label>
+                  <select id="m-mat">
+                    <option value="7.00">Cobre recocido, blando (Kf = 7,00)</option>
+                    <option value="7.06" selected>Cobre comercial, duro (Kf = 7,06)</option>
+                    <option value="11.78">Cobre duro, límite de 250 °C (Kf = 11,78)</option>
+                    <option value="10.45">Acero recubierto de cobre 40 % (Kf = 10,45)</option>
+                    <option value="12.06">Acero recubierto de cobre 30 % (Kf = 12,06)</option>
+                    <option value="28.96">Acero galvanizado (Kf = 28,96)</option>
+                  </select>
+                  <small>K<sub>f</sub> de la tabla 2 de IEEE Std 80 (T<sub>a</sub> = 40 °C).</small>
+                </div>
+                <div class="field">
+                  <label for="m-dc">Diámetro del conductor d [mm]</label>
+                  <input id="m-dc" type="number" min="1" step="0.1" value="10">
+                  <small>2/0 AWG ≈ 10,5 mm; el Anexo B usa 10 mm.</small>
+                </div>
+              </div>
+              <div class="field">
+                <label for="m-ic">Corriente para dimensionar el conductor [A] (opcional)</label>
+                <input id="m-ic" type="number" min="1" step="10" placeholder="Igual a If">
+                <small>Úsela si la falla más severa para el conductor ocurre en otro punto (en el Anexo B: 6 814 A en la barra de 13 kV). No se multiplica por S<sub>f</sub>.</small>
+              </div>
+            </div>
+
+            <div class="results">
+              <div class="figure">
+                <svg class="diagram live" id="m-svg" viewBox="0 0 480 300" role="img" aria-label="Vista en planta de la malla calculada"></svg>
+              </div>
+              <div class="result"><span>Conductores de la malla</span><strong id="m-geo">—</strong></div>
+              <div class="result big"><span>Tensión de malla E<sub>m</sub></span><strong id="m-em-r">—</strong></div>
+              <div id="m-st-em" class="status info">—</div>
+              <div class="result big"><span>Tensión de paso E<sub>s</sub></span><strong id="m-es-r">—</strong></div>
+              <div id="m-st-es" class="status info">—</div>
+              <div id="m-status" class="status info">—</div>
+              <ul id="m-sug" class="keypoints" hidden></ul>
+              <div id="m-avisos" class="status info" hidden></div>
+              <p class="calc-note">En el diagrama, la malla de la esquina (E<sub>m</sub>) y el punto exterior (E<sub>s</sub>) se pintan de verde si cumplen y de rojo si no. Método simplificado de IEEE Std 80 para suelo homogéneo y retícula uniforme: no reemplaza un estudio con suelo de dos capas, mallas irregulares o tensiones transferidas. El RETIE exige comprobar que las tensiones de paso, de contacto y transferidas no superen los valores tolerables.</p>
+            </div>
+
+            <div class="calc-steps">
+              <div class="formula">
+                <h4>1. Calibre mínimo del conductor</h4>
+                <div class="eq">$$A_{mm^2} = \frac{I_F \, K_f \, \sqrt{t_c}}{1{,}9737}$$</div>
+                <div class="result"><span>Corriente asimétrica I<sub>F</sub> = D<sub>f</sub>·I</span><strong id="m-ifc">—</strong></div>
+                <div class="result"><span>Constante K<sub>f</sub></span><strong id="m-kf">—</strong></div>
+                <div class="result"><span>Sección mínima</span><strong id="m-amin">—</strong></div>
+                <div class="result"><span>Calibre sugerido</span><strong id="m-cal">—</strong></div>
+                <p class="where"><b>I<sub>F</sub></b> corriente de falla en el conductor [kA] · <b>t<sub>c</sub></b> duración de la falla [s], aquí igual a t<sub>f</sub> · <b>K<sub>f</sub></b> constante del material. IEEE Std 80, cláusula 11.3 (ecuación simplificada y tabla 2), recogida por el RETIE. El calibre sugerido no baja de 2/0 AWG (67,4 mm²), mínimo práctico por resistencia mecánica del Anexo B de IEEE Std 80.</p>
+              </div>
+
+              <div class="formula">
+                <h4>2. Factor de la capa superficial</h4>
+                <div class="eq">$$C_s = 1 - \frac{0{,}09\left(1 - \dfrac{\rho}{\rho_s}\right)}{2h_s + 0{,}09}$$</div>
+                <div class="result"><span>C<sub>s</sub></span><strong id="m-cs">—</strong></div>
+                <p class="where"><b>ρ</b> resistividad del suelo [Ω·m] · <b>ρ<sub>s</sub></b> resistividad de la capa superficial [Ω·m] · <b>h<sub>s</sub></b> espesor de la capa [m]. Sin capa superficial, C<sub>s</sub> = 1 y ρ<sub>s</sub> = ρ. IEEE Std 80, cláusula 7.4.</p>
+              </div>
+
+              <div class="formula">
+                <h4>3. Tensiones tolerables</h4>
+                <div class="eq">$$E_{paso} = \left(1000 + 6\,C_s\,\rho_s\right)\frac{k}{\sqrt{t_s}}$$</div>
+                <div class="eq">$$E_{contacto} = \left(1000 + 1{,}5\,C_s\,\rho_s\right)\frac{k}{\sqrt{t_s}}$$</div>
+                <div class="result"><span>Constante k</span><strong id="m-k">—</strong></div>
+                <div class="result"><span>Paso tolerable</span><strong id="m-estep">—</strong></div>
+                <div class="result"><span>Contacto tolerable</span><strong id="m-etouch">—</strong></div>
+                <p class="where"><b>k</b> = 0,116 para 50 kg y 0,157 para 70 kg · <b>t<sub>s</sub></b> duración del choque [s], aquí igual a t<sub>f</sub> · 1000 Ω es la resistencia del cuerpo. IEEE Std 80, cláusula 8 (criterio de Dalziel).</p>
+              </div>
+
+              <div class="formula">
+                <h4>4. Resistencia de la malla (Sverak)</h4>
+                <div class="eq">$$R_g = \rho\left[\frac{1}{L_T} + \frac{1}{\sqrt{20A}}\left(1 + \frac{1}{1 + h\sqrt{20/A}}\right)\right]$$</div>
+                <div class="result"><span>Área A = L<sub>x</sub>·L<sub>y</sub></span><strong id="m-area">—</strong></div>
+                <div class="result"><span>L<sub>T</sub> = L<sub>C</sub> + L<sub>R</sub></span><strong id="m-lt">—</strong></div>
+                <div class="result"><span>R<sub>g</sub></span><strong id="m-rg">—</strong></div>
+                <p class="where"><b>L<sub>T</sub></b> longitud total enterrada [m]: conductores (L<sub>C</sub>) más varillas (L<sub>R</sub>) · <b>A</b> área de la malla [m²] · <b>h</b> profundidad [m]. Fórmula de Sverak; IEEE Std 80, cláusula 14.2.</p>
+              </div>
+
+              <div class="formula span-2">
+                <h4>5. Corriente máxima de malla y GPR</h4>
+                <div class="eq">$$D_f = \sqrt{1 + \frac{T_a}{t_f}\left(1 - e^{-2t_f/T_a}\right)}$$</div>
+                <div class="eq">$$T_a = \frac{X/R}{2\pi f}$$</div>
+                <div class="eq">$$I_G = D_f \, S_f \, I_f \qquad GPR = I_G \, R_g$$</div>
+                <div class="result"><span>D<sub>f</sub></span><strong id="m-dfr">—</strong></div>
+                <div class="result"><span>I<sub>G</sub></span><strong id="m-ig">—</strong></div>
+                <div class="result"><span>GPR</span><strong id="m-gpr">—</strong></div>
+                <p class="where"><b>T<sub>a</sub></b> constante de tiempo de la componente continua [s] · <b>f</b> = 60 Hz · <b>S<sub>f</sub></b> factor de división de corriente · <b>GPR</b> elevación del potencial de tierra [V]. IEEE Std 80, cláusula 15 (15.10 para D<sub>f</sub>).</p>
+              </div>
+
+              <div class="formula wide">
+                <h4>6. Tensión de malla</h4>
+                <div class="eq">$$E_m = \frac{\rho \, K_m \, K_i \, I_G}{L_M}$$</div>
+                <div class="eq">$$K_m = \frac{1}{2\pi}\left[\ln\left(\frac{D^2}{16\,h\,d} + \frac{(D + 2h)^2}{8\,D\,d} - \frac{h}{4d}\right) + \frac{K_{ii}}{K_h}\,\ln\frac{8}{\pi(2n - 1)}\right]$$</div>
+                <div class="eq">$$n = n_a\,n_b, \quad n_a = \frac{2L_C}{L_p}, \quad n_b = \sqrt{\frac{L_p}{4\sqrt{A}}}$$</div>
+                <div class="eq">$$K_{ii} = \frac{1}{(2n)^{2/n}}, \quad K_h = \sqrt{1 + \frac{h}{h_0}}, \quad K_i = 0{,}644 + 0{,}148\,n$$</div>
+                <div class="eq">$$L_M = L_C + \left[1{,}55 + 1{,}22\left(\frac{L_r}{\sqrt{L_x^2 + L_y^2}}\right)\right]L_R$$</div>
+                <div class="result-cols">
+                  <div class="result"><span>n = n<sub>a</sub>·n<sub>b</sub></span><strong id="m-n">—</strong></div>
+                  <div class="result"><span>K<sub>ii</sub></span><strong id="m-kii">—</strong></div>
+                  <div class="result"><span>K<sub>h</sub></span><strong id="m-kh">—</strong></div>
+                  <div class="result"><span>K<sub>m</sub></span><strong id="m-km">—</strong></div>
+                  <div class="result"><span>K<sub>i</sub></span><strong id="m-ki">—</strong></div>
+                  <div class="result"><span>L<sub>M</sub></span><strong id="m-lm">—</strong></div>
+                  <div class="result"><span>E<sub>m</sub></span><strong id="m-em">—</strong></div>
+                </div>
+                <p class="where"><b>D</b> espaciamiento [m] · <b>d</b> diámetro del conductor [m] · <b>h</b> profundidad [m], con h<sub>0</sub> = 1 m · <b>L<sub>p</sub></b> perímetro de la malla [m] · <b>n</b> número efectivo de conductores paralelos (en mallas rectangulares n<sub>c</sub> = n<sub>d</sub> = 1) · <b>K<sub>ii</sub></b> = 1 si hay varillas en las esquinas o el perímetro; si no, se usa la expresión mostrada y L<sub>M</sub> = L<sub>C</sub> + L<sub>R</sub> · <b>K<sub>i</sub></b> factor de irregularidad · <b>L<sub>r</sub></b> longitud de cada varilla [m]. IEEE Std 80, cláusula 16.5.1.</p>
+              </div>
+
+              <div class="formula">
+                <h4>7. Tensión de paso</h4>
+                <div class="eq">$$E_s = \frac{\rho \, K_s \, K_i \, I_G}{L_S}, \quad L_S = 0{,}75\,L_C + 0{,}85\,L_R$$</div>
+                <div class="eq">$$K_s = \frac{1}{\pi}\left[\frac{1}{2h} + \frac{1}{D + h} + \frac{1}{D}\left(1 - 0{,}5^{\,n-2}\right)\right]$$</div>
+                <div class="result"><span>K<sub>s</sub></span><strong id="m-ks">—</strong></div>
+                <div class="result"><span>L<sub>S</sub></span><strong id="m-ls">—</strong></div>
+                <div class="result"><span>E<sub>s</sub></span><strong id="m-es">—</strong></div>
+                <p class="where"><b>K<sub>s</sub></b> factor geométrico de paso · <b>L<sub>S</sub></b> longitud efectiva para la tensión de paso [m]. Válida para 0,25 m &lt; h &lt; 2,5 m. IEEE Std 80, cláusula 16.5.2.</p>
+              </div>
+
+              <div class="formula span-xl">
+                <h4>8. Veredicto</h4>
+                <div class="eq">$$E_m \le E_{contacto} \qquad E_s \le E_{paso}$$</div>
+                <div class="result-cols">
+                  <div class="result"><span>Malla vs. contacto tolerable</span><strong id="m-cmp-em">—</strong></div>
+                  <div class="result"><span>Paso vs. paso tolerable</span><strong id="m-cmp-es">—</strong></div>
+                  <div class="result"><span>GPR vs. contacto tolerable</span><strong id="m-cmp-gpr">—</strong></div>
+                </div>
+                <p class="where">Si el GPR es menor que la tensión de contacto tolerable, el diseño cumple sin más análisis. Si E<sub>m</sub> o E<sub>s</sub> superan el valor tolerable, hay que modificar la malla (menor espaciamiento, más varillas, capa de gravilla, menor tiempo de despeje) y repetir el cálculo. Procedimiento de diseño de IEEE Std 80, cláusula 16.4.</p>
+              </div>
+            </div>
+          </form>
+
+          <h3 style="margin-top:26px">Validación con el Anexo B de IEEE Std 80</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Magnitud</th><th>B.1 · IEEE</th><th>B.1 · calculadora</th><th>B.2 · IEEE</th><th>B.2 · calculadora</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Sección mínima del conductor [mm²]</td><td>17,2</td><td>17,2</td><td>17,2</td><td>17,2</td></tr>
+                <tr><td>C<sub>s</sub></td><td>0,74</td><td>0,743</td><td>0,74</td><td>0,743</td></tr>
+                <tr><td>Tensión de paso tolerable, 70 kg [V]</td><td>2.686,6</td><td>2.696,1</td><td>2.686,6</td><td>2.696,1</td></tr>
+                <tr><td>Tensión de contacto tolerable, 70 kg [V]</td><td>838,2</td><td>840,5</td><td>838,2</td><td>840,5</td></tr>
+                <tr><td>L<sub>T</sub> [m]</td><td>1.540</td><td>1.540</td><td>1.690</td><td>1.690</td></tr>
+                <tr><td>R<sub>g</sub> [Ω]</td><td>2,78</td><td>2,776</td><td>2,75</td><td>2,753</td></tr>
+                <tr><td>I<sub>G</sub> [A]</td><td>1.908</td><td>1.908</td><td>1.908</td><td>1.908</td></tr>
+                <tr><td>GPR [V]</td><td>5.304</td><td>5.296</td><td>5.247</td><td>5.252</td></tr>
+                <tr><td>n</td><td>11</td><td>11,000</td><td>11</td><td>11,000</td></tr>
+                <tr><td>K<sub>ii</sub></td><td>0,57</td><td>0,570</td><td>1,0</td><td>1,000</td></tr>
+                <tr><td>K<sub>h</sub></td><td>1,225</td><td>1,225</td><td>1,225</td><td>1,225</td></tr>
+                <tr><td>K<sub>m</sub></td><td>0,89</td><td>0,890</td><td>0,77</td><td>0,772</td></tr>
+                <tr><td>K<sub>i</sub></td><td>2,272</td><td>2,272</td><td>2,272</td><td>2,272</td></tr>
+                <tr><td>E<sub>m</sub> [V]</td><td>1.002,1</td><td>1.001,6</td><td>747,4</td><td>749,1</td></tr>
+                <tr><td>K<sub>s</sub></td><td>—</td><td>0,406</td><td>0,406</td><td>0,406</td></tr>
+                <tr><td>E<sub>s</sub> [V]</td><td>—</td><td>609,7</td><td>548,9</td><td>549,1</td></tr>
+                <tr><td>Veredicto</td><td>No cumple</td><td>No cumple</td><td>Cumple</td><td>Cumple</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="calc-note" style="margin-top:10px">Ejemplos B.1 (malla cuadrada de 70 m × 70 m, D = 7 m, sin varillas) y B.2 (la misma malla con 20 varillas de 7,5 m en el perímetro) del Anexo B de IEEE Std 80, con ρ = 400 Ω·m, gravilla de 2 500 Ω·m y 0,102 m, 3I<sub>0</sub> = 3 180 A, S<sub>f</sub> = 0,6, D<sub>f</sub> = 1,0, t<sub>f</sub> = 0,5 s, h = 0,5 m, d = 0,01 m y el conductor dimensionado con 6 814 A. Las diferencias (menores que 0,4 %) se deben a que la guía redondea los valores intermedios (C<sub>s</sub> = 0,74, R<sub>g</sub> y K<sub>m</sub> a dos decimales) y la calculadora no. En el ejemplo B.3 (84 m × 63 m con 38 varillas de 10 m) la calculadora da R<sub>g</sub> = 2,62 Ω y E<sub>m</sub> = 593,6 V frente a 2,62 Ω y 595,8 V de la guía: la retícula de 7 m da L<sub>C</sub> = 13 × 63 + 10 × 84 = 1 659 m, mientras que el ejemplo usa 1 625 m. Use los botones B.1, B.2 y B.3 para reproducirlos, y confirme los valores publicados con su ejemplar de la guía.</p>
+
+          <div class="notice">
+            <span class="ico">⚠️</span>
+            <p><strong>Verifique la versión vigente.</strong> La calculadora C sigue las ecuaciones de IEEE Std 80 (edición 2000, cuyo método conserva la edición 2013); es una referencia internacional y la numeración de cláusulas y tablas puede variar entre ediciones. El RETIE exige que el diseño del sistema de puesta a tierra compruebe las tensiones de paso, de contacto y transferidas (artículo 15 en la versión de 2013; la numeración cambió con la actualización de 2024, Resolución 40117) y fija valores máximos de tensión de contacto según el tiempo de despeje. Consulte el texto oficial vigente de ambas normas antes de diseñar o certificar.</p>
+          </div>
 
         </div>
       </div>
